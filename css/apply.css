@@ -1,0 +1,112 @@
+/* apply — job application page */
+@media (max-width:1180px){.nav-dd{flex-direction:column;align-items:flex-start;width:100%}.nav-dd .caret{display:none}.nav-dd .dd{position:static;opacity:1;visibility:visible;transform:none;margin:8px 0 0;padding:0 0 0 14px;background:transparent;border:none;box-shadow:none;min-width:0;border-left:1px solid rgba(255,255,255,.18)}.nav-dd::after{display:none}.menu .nav-dd .dd a{color:rgba(255,255,255,.82);padding:8px 0}.menu .nav-dd .dd a:hover{background:transparent;color:#fff}}
+@media (max-width:1180px){
+  .menu{position:fixed;inset:118px 0 auto 0;flex-direction:column;background:var(--ink-blue);padding:22px var(--pad) 30px;gap:22px;align-items:flex-start;transform:translateY(-130%);transition:transform .3s;height:auto;max-height:calc(100dvh - 118px);overflow-y:auto;overscroll-behavior:contain}
+  header.scrolled .menu{background:#fff;border-bottom:1px solid var(--hair)}
+  .menu.open{transform:translateY(0)}
+  .menu a{font-size:16px;color:#fff}header.scrolled .menu a{color:var(--muted)}
+  .menu .nav-cta{align-self:stretch;justify-content:center;font-size:15px;padding:14px}
+  .burger{display:flex}
+}
+
+/* the page sits under a light header, so the mark is the colour one from the start */
+header::before{opacity:0}
+header{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-color:var(--hair)}
+header:not(.scrolled) .menu a{color:var(--muted)}
+header:not(.scrolled) .menu a:hover,header:not(.scrolled) .menu a.nav-active{color:var(--blue)}
+header:not(.scrolled) .menu a.nav-cta{background:var(--red);color:#fff}
+header:not(.scrolled) .burger{color:var(--blue);border-color:var(--hair)}
+
+.ap-main{background:var(--soft)}
+
+/* ── heading ─────────────────────────────────────────────────────────────── */
+.ap-head{padding:clamp(150px,19vh,196px) 0 clamp(22px,2.6vw,32px);background:#fff;
+  border-bottom:1px solid var(--hair)}
+.ap-back{display:inline-flex;align-items:center;gap:8px;font-family:"Space Mono",ui-monospace,Consolas,monospace;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  text-decoration:none;margin-bottom:18px}
+.ap-back:hover{color:var(--blue)}
+.ap-title{font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-weight:900;font-size:clamp(30px,4.4vw,52px);line-height:1.04;letter-spacing:-.03em;
+  color:var(--ink-blue);margin:0}
+.ap-role-line{color:var(--muted);font-size:16px;margin:12px 0 0}
+.ap-role-line strong{color:var(--blue)}
+
+/* ── layout: form leads, context sits beside it ──────────────────────────── */
+.ap-body{padding:clamp(34px,4.4vw,60px) 0 clamp(60px,7vw,96px)}
+.ap-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.45fr);
+  gap:clamp(24px,3.4vw,56px);align-items:start}
+
+.ap-aside{position:sticky;top:160px;display:grid;gap:18px}
+.ap-aside h2{font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-weight:800;font-size:19px;letter-spacing:-.01em;color:var(--ink-blue);margin:0 0 4px}
+.ap-steps{margin:0;padding-left:20px;color:var(--muted);font-size:15px;line-height:1.65}
+.ap-steps li{margin-bottom:9px}
+.ap-note{background:#fff;border:1px solid var(--hair);border-radius:14px;padding:18px 20px}
+.ap-note b{display:block;font-size:14.5px;color:var(--ink-blue);margin-bottom:5px}
+.ap-note p{margin:0;font-size:14.5px;line-height:1.6;color:var(--muted)}
+.ap-note a{color:var(--blue);font-weight:600}
+
+/* ── the form ────────────────────────────────────────────────────────────── */
+.ap-form{background:#fff;border:1px solid var(--hair);border-radius:20px;
+  padding:clamp(22px,2.8vw,38px);box-shadow:0 10px 30px rgba(16,28,58,.05)}
+.ap-req{font-family:"Space Mono",ui-monospace,Consolas,monospace;font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 20px}
+.ap-star{color:var(--red)}
+
+.ap-field{display:block;margin-bottom:18px}
+.ap-field label{display:block;font-weight:700;font-size:14.5px;color:var(--ink-blue);
+  margin-bottom:7px;letter-spacing:-.005em}
+.ap-field input,.ap-field select,.ap-field textarea{
+  width:100%;font:inherit;font-size:15.5px;color:var(--ink);
+  background:#fff;border:1.5px solid var(--gray);border-radius:11px;
+  padding:13px 15px;transition:border-color .18s,box-shadow .18s}
+.ap-field textarea{resize:vertical;min-height:88px;line-height:1.6}
+.ap-field input:hover,.ap-field select:hover,.ap-field textarea:hover{border-color:#A9B0C2}
+.ap-field input:focus,.ap-field select:focus,.ap-field textarea:focus{
+  outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,88,170,.16)}
+.ap-field input::placeholder,.ap-field textarea::placeholder{color:#9AA3B8}
+/* Never mark a field red before the person has had a go at it.
+   :user-invalid handles that natively; .is-checked is the fallback, added
+   by the script on the first failed submit. Plain :invalid is deliberately
+   NOT used - every empty required field would be red on arrival. */
+.ap-field input:user-invalid,
+.ap-field select:user-invalid,
+.ap-field textarea:user-invalid{border-color:var(--red)}
+.ap-form.is-checked .ap-field input:invalid,
+.ap-form.is-checked .ap-field select:invalid,
+.ap-form.is-checked .ap-field textarea:invalid{border-color:var(--red)}
+
+.ap-row{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.ap-row-3{grid-template-columns:1.6fr .7fr .9fr}
+
+.ap-submit{width:100%;justify-content:center;margin-top:8px;font-size:16.5px;padding:17px 24px}
+.ap-small{font-size:13px;color:var(--muted);margin:14px 0 0;text-align:center}
+.ap-err{margin:14px 0 0;padding:12px 14px;border-radius:10px;font-size:14.5px;
+  background:rgba(196,42,42,.07);border:1px solid rgba(196,42,42,.25);color:var(--red-deep)}
+
+/* honeypot: off-screen rather than display:none, which some bots skip */
+.ap-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* ── thank-you state (apply.php renders this) ────────────────────────────── */
+.ap-done{background:#fff;border:1px solid var(--hair);border-radius:20px;
+  padding:clamp(30px,4vw,56px);text-align:center;max-width:620px;margin:0 auto;
+  box-shadow:0 10px 30px rgba(16,28,58,.05)}
+.ap-done .ap-tick{width:62px;height:62px;border-radius:50%;margin:0 auto 20px;
+  display:grid;place-items:center;background:rgba(37,88,170,.10);color:var(--blue)}
+.ap-done h1{font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  font-weight:900;font-size:clamp(24px,3vw,34px);color:var(--ink-blue);margin:0 0 12px;
+  letter-spacing:-.02em}
+.ap-done p{color:var(--muted);font-size:16px;line-height:1.65;margin:0 0 10px}
+
+@media (max-width:900px){
+  .ap-grid{grid-template-columns:1fr}
+  .ap-aside{position:static;order:2}
+  .ap-form{order:1}
+}
+@media (max-width:560px){
+  .ap-row,.ap-row-3{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .ap-field input,.ap-field select,.ap-field textarea{transition:none}
+}

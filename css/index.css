@@ -1,0 +1,439 @@
+/* index — page-specific styles */
+@media (max-width:1180px){.nav-dd{flex-direction:column;align-items:flex-start;width:100%}.nav-dd .caret{display:none}.nav-dd .dd{position:static;opacity:1;visibility:visible;transform:none;margin:8px 0 0;padding:0 0 0 14px;background:transparent;border:none;box-shadow:none;min-width:0;border-left:1px solid rgba(255,255,255,.18)}.nav-dd::after{display:none}.menu .nav-dd .dd a{color:rgba(255,255,255,.82);padding:8px 0}.menu .nav-dd .dd a:hover{background:transparent;color:#fff}}
+@media (max-width:1429px){.hero-logo{display:none}body.home .brand{opacity:1;pointer-events:auto}}
+@media (max-width:1180px){
+  .menu{position:fixed;inset:84px 0 auto 0;flex-direction:column;background:var(--ink-blue);padding:22px var(--pad) 30px;gap:22px;align-items:flex-start;transform:translateY(-130%);transition:transform .3s;height:auto;max-height:calc(100vh - 84px);max-height:calc(100dvh - 84px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  header.scrolled .menu{background:#fff;border-bottom:1px solid var(--hair)}
+  .menu.open{transform:translateY(0)}
+  .menu a{font-size:16px;color:#fff}header.scrolled .menu a{color:var(--muted)}
+  .menu .nav-cta{align-self:stretch;justify-content:center;font-size:15px;padding:14px}
+  .burger{display:flex}
+}
+.hero{position:relative;min-height:clamp(360px,44vh,460px);display:grid;grid-template-columns:1.12fr .88fr;color:#fff;overflow:hidden;background:linear-gradient(150deg,var(--blue-deep) 0%,var(--ink-blue) 74%)}
+.hero-content{position:relative;z-index:2;display:flex;align-items:flex-start;padding:clamp(136px,13vh,148px) clamp(30px,4vw,64px) clamp(34px,3.5vh,46px) clamp(30px,6vw,96px)}
+.hero-inner{width:100%;max-width:640px}
+.hero-media{position:relative;overflow:hidden}
+.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink-blue) 0%,rgba(13,24,48,.42) 26%,rgba(13,24,48,.06) 58%,transparent 100%);z-index:1}
+.hero-vlabel{position:absolute;right:22px;bottom:18px;z-index:2;font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+@media(max-width:900px){.hero{grid-template-columns:1fr;min-height:auto}.hero-media{order:2;min-height:clamp(260px,42vh,400px)}.hero-media::after{background:linear-gradient(0deg,var(--ink-blue) 0%,rgba(13,24,48,.2) 42%,transparent 76%)}.hero-content{order:1;padding-top:clamp(104px,13vh,116px);padding-bottom:32px}}
+.hero .bg{position:absolute;inset:0;z-index:0;background:#101C3A center/cover no-repeat;background-image:var(--hero-img,none)}
+.h-title{font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-weight:900;font-size:clamp(40px,5vw,74px);line-height:.96;letter-spacing:-.035em;color:#fff;margin:0}
+@keyframes cue{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+@media (max-width:980px){.h-vlabel,.scrollcue{display:none}}
+@media (prefers-reduced-motion:reduce){.scrollcue .bar{animation:none}}
+.stats-wrap{position:relative;z-index:10;margin-top:clamp(-58px,-5vw,-44px);padding-bottom:clamp(30px,5vw,60px)}
+@media (max-width:820px){.stats-float{grid-template-columns:1fr 1fr}.sf{border-left:1px solid var(--hair);border-top:1px solid var(--hair)}.sf:nth-child(-n+2){border-top:none}.sf:nth-child(odd){border-left:none}}
+.trades{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:820px){.svc-head{grid-template-columns:1fr;gap:14px}.trades{grid-template-columns:1fr}.svc-grid{grid-template-columns:1fr}}
+@keyframes pulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+@media (prefers-reduced-motion:reduce){.play::before{animation:none}}
+@media (max-width:900px){.story-in{grid-template-columns:1fr;gap:34px}}
+.htl{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:40px;position:relative}
+.htl::before{content:"";position:absolute;left:0;right:0;top:7px;height:2px;background:linear-gradient(90deg,var(--blue),var(--orange))}
+.ht{position:relative;padding-top:38px}
+.ht::before{content:"";position:absolute;left:0;top:0;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--blue)}
+.ht:last-child::before{background:var(--orange);border-color:var(--orange-deep)}
+.ht .yr{font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:700;font-size:12px;letter-spacing:.14em;color:var(--orange-deep)}
+.ht h3{font-weight:800;font-size:20px;margin:10px 0 8px;letter-spacing:-.01em}
+.ht p{color:var(--muted);margin:0;font-size:14.5px;line-height:1.55}
+@media (max-width:860px){
+  .htl{grid-template-columns:1fr;gap:0;margin-top:40px;padding-left:34px}
+  .htl::before{left:6px;right:auto;top:6px;bottom:6px;width:2px;height:auto;background:linear-gradient(180deg,var(--blue),var(--orange))}
+  .ht{padding:0 0 40px 6px}
+  .ht::before{left:-34px;top:3px}
+}
+@media (max-width:900px){.tgrid{grid-template-columns:1fr}}
+@media (max-width:900px){.cgrid{grid-template-columns:1fr;gap:40px}.two{grid-template-columns:1fr}}
+@media (max-width:820px){.ft{grid-template-columns:1fr 1fr}.fb{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.page-banner{position:relative;overflow:hidden;color:#fff;padding-top:clamp(148px,19vh,188px);padding-bottom:clamp(64px,8vw,94px);background:#101C3A center/cover no-repeat}
+.tcard2{display:flex;flex-direction:column;border-radius:22px;padding:40px 38px;border:1px solid var(--hair);background:#fff;transition:transform .3s,box-shadow .3s,border-color .3s;position:relative;overflow:hidden}
+.tcard2.a::before{background:var(--blue)}
+.tcard2 .ico{width:62px;height:62px;border-radius:17px;display:grid;place-items:center;margin-bottom:24px;color:#fff;box-shadow:0 14px 28px rgba(13,24,48,.16);position:relative;z-index:1}
+.tcard2.a{background:linear-gradient(165deg,var(--blue) 0%,var(--ink-blue) 125%);border-color:transparent;color:#fff}
+.tcard2.a::before{background:var(--yellow)}
+.tcard2.a h3{color:#fff}
+.tcard2.a .kick{color:var(--yellow)}
+.tcard2.a p{color:rgba(255,255,255,.82)}
+.tcard2.a .tags span{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:rgba(255,255,255,.85)}
+.tcard2.a .go{color:#fff;border-top-color:rgba(255,255,255,.18)}
+.tcard2.a .ga{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.24);color:#fff}
+.tcard2.a:hover .ga{background:var(--yellow);color:var(--ink-blue);border-color:var(--yellow)}
+.tcard2.a .tcwm{color:#fff;opacity:.07}
+.tcard2.a:hover{transform:translateY(-6px);box-shadow:0 36px 74px rgba(13,24,48,.34);border-color:transparent}
+.tcard2.b:hover{transform:translateY(-6px);box-shadow:0 30px 64px rgba(13,24,48,.14)}
+.tcard2 p{color:var(--muted);font-size:15px;margin:16px 0 20px;line-height:1.55}
+.tcard2 p{position:relative;z-index:1}
+.tcard2 .tags{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 26px;position:relative;z-index:1}
+.tcard2 .tags span{font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--soft-2);border:1px solid var(--hair);border-radius:100px;padding:6px 13px}
+.tcard2 .go{margin-top:auto;width:100%;border-top:1px solid var(--hair);padding-top:22px;font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-deep);font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:8px;position:relative;z-index:1}
+.tcard2 .ga{width:36px;height:36px;border-radius:50%;background:var(--soft-2);border:1px solid var(--hair);display:grid;place-items:center;color:var(--blue);transition:transform .3s,background .3s,color .3s,border-color .3s}
+.tcard2 .ga svg{width:16px;height:16px}
+.tcard2.a:hover .ga{background:var(--blue);color:#fff;border-color:var(--blue);transform:translateX(4px)}
+.tcard2.b:hover .ga{background:var(--orange);color:var(--ink-blue);border-color:var(--orange);transform:translateX(4px)}
+.tcwm{position:absolute;right:-20px;bottom:-26px;opacity:.05;color:var(--ink-blue);pointer-events:none;z-index:0}
+.tcwm svg{width:180px;height:180px}
+.tcards.single{grid-template-columns:1fr}
+.sec-sub{color:var(--muted);font-size:clamp(16px,1.8vw,19px);max-width:64ch;margin-top:14px;line-height:1.55}
+.tcard2.elcard{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(28px,4vw,54px);align-items:center;padding:clamp(36px,4vw,52px)}
+.tcard2.elcard .elcard-l,.tcard2.elcard .elcard-r{position:relative;z-index:1}
+.tcard2.elcard .elcard-l{display:flex;flex-direction:column;align-items:flex-start}
+.tcard2.elcard .kick{margin-bottom:0}
+.tcard2.elcard .go{margin-top:26px;width:auto;border-top:none;padding-top:0;display:inline-flex;gap:12px;justify-content:flex-start}
+.tcard2.elcard .tags{margin:22px 0 0}
+@media(max-width:760px){.tcard2.elcard{grid-template-columns:1fr;gap:22px}}
+@media (max-width:820px){.tcards{grid-template-columns:1fr}}
+.why{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:32px}
+.wcard .wn{position:absolute;top:18px;right:22px;font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-weight:900;font-size:40px;line-height:1;letter-spacing:-.02em;color:rgba(11,99,224,.16);z-index:0}
+.wcard .wi,.wcard h4,.wcard p{position:relative;z-index:1}
+.wcard .wi{width:52px;height:52px;border-radius:14px;background:linear-gradient(160deg,var(--blue),var(--ink-blue));border:none;display:grid;place-items:center;color:#fff;margin-bottom:20px;box-shadow:0 12px 24px rgba(13,24,48,.16)}
+@media (max-width:900px){.why{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.why{grid-template-columns:1fr}}
+@media (max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+@media (max-width:820px){.values{grid-template-columns:1fr}}
+.rsum{display:flex;align-items:center;gap:30px;flex-wrap:wrap;background:var(--soft);border:1px solid var(--hair);border-radius:20px;padding:32px 36px;margin-bottom:42px}
+.rsum .big{font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-weight:900;font-size:60px;color:var(--blue-deep);line-height:1;letter-spacing:-.03em}
+.rsum .rmeta{font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.hero .bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:url(#heroSharp) contrast(1.05) saturate(1.08) brightness(1.02)}
+.hero-fx{position:absolute;pointer-events:none}
+/* floating hero trust chips (modern) */
+.hbadges{position:absolute;top:clamp(112px,15vh,172px);right:var(--pad);z-index:3;display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+.hbadge{display:flex;align-items:center;gap:13px;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.65);border-radius:16px;padding:13px 18px;box-shadow:0 20px 44px rgba(13,24,48,.30);max-width:280px}
+.hbadge .hi{width:40px;height:40px;border-radius:12px;flex:0 0 auto;display:grid;place-items:center;background:var(--soft);color:var(--blue)}
+.hbadge.gold .hi{background:rgba(11,99,224,.15);color:var(--orange-deep)}
+.hbadge .hi svg{width:20px;height:20px}
+.hbadge b{display:block;font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-weight:800;font-size:14.5px;color:var(--ink-blue);letter-spacing:-.01em;line-height:1.12}
+.hbadge small{display:block;font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.hbadge.b2{margin-right:30px}
+.hbadge.b3{margin-right:10px}
+@media (max-width:1040px){.hbadges{display:none}}
+.hero .h-vlabel{display:none}
+/* circular-arrow badge inside the hero CTA */
+.barrow{width:27px;height:27px;border-radius:50%;background:#fff;display:grid;place-items:center;margin-left:3px}
+.barrow svg{width:13px;height:13px;color:var(--red)}
+.btn-book{font-size:16.5px;padding:20px 38px}
+.btn-book .barrow{width:30px;height:30px}
+.btn-book .barrow svg{width:15px;height:15px}
+.htrust{display:flex;flex-wrap:wrap;gap:9px 26px;margin-top:30px}
+.htrust span{display:inline-flex;align-items:center;gap:9px;font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+.htrust span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--yellow);flex:0 0 auto}
+.hero-esop{margin-top:26px;max-width:48ch;border-left:3px solid var(--yellow);padding:3px 0 3px 16px}
+.hero-esop b{display:block;font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-weight:800;font-size:15px;color:#fff;margin-bottom:6px;letter-spacing:.01em}
+.hero-esop p{color:rgba(255,255,255,.76);font-size:13.5px;line-height:1.55;margin:0}
+.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:38px;position:relative}
+.how-sec{position:relative;background:linear-gradient(rgba(13,24,48,.9),rgba(20,35,66,.93)),url(../images/background-04.jpg) center/cover;overflow:hidden}
+.how-sec .eyebrow{color:var(--yellow)}
+.how-sec .eyebrow .ln{background:var(--yellow)}
+.how-sec .sec-title{color:var(--orange)}
+.how-sec .hstep h4{color:#fff}
+.how-sec .hstep p{color:rgba(255,255,255,.72)}
+.how-sec .hnum{background:var(--orange);color:var(--ink-blue);box-shadow:0 12px 26px rgba(0,0,0,.32)}
+.how-sec .how-steps::before{background:linear-gradient(90deg,rgba(255,255,255,.32),var(--orange))}
+.how-steps::before{content:"";position:absolute;top:27px;left:9%;right:9%;height:2px;background:linear-gradient(90deg,var(--blue),var(--orange));z-index:0}
+.hstep{position:relative;z-index:1}
+.hnum{width:54px;height:54px;border-radius:50%;background:linear-gradient(160deg,var(--blue),var(--ink-blue));color:#fff;font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-weight:900;font-size:22px;display:grid;place-items:center;box-shadow:0 12px 26px rgba(13,24,48,.2);margin-bottom:20px}
+.hstep h4{font-size:19px;font-weight:800;color:var(--blue-deep);margin:0 0 8px;letter-spacing:-.01em}
+.hstep p{color:var(--muted);font-size:14.5px;line-height:1.55;margin:0}
+.how-cta{margin-top:34px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.how-sec .how-guide{display:inline-flex;align-items:center;gap:8px;color:rgba(255,255,255,.85);font-size:14.5px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:2px;transition:color .2s,border-color .2s}
+.how-sec .how-guide:hover{color:var(--yellow);border-color:var(--yellow)}
+.how-sec .how-guide svg{width:16px;height:16px}
+@media(max-width:820px){.how-steps{grid-template-columns:1fr 1fr;gap:34px 24px}.how-steps::before{display:none}}
+@media(max-width:520px){.how-steps{grid-template-columns:1fr}}
+.hero-logo{position:absolute;top:26px;left:clamp(20px,2.4vw,44px);z-index:60;line-height:0;transition:opacity .3s}
+.hero-logo img{height:104px;width:auto;display:block}
+header.scrolled ~ main .hero-logo{opacity:0;pointer-events:none}
+.home .brand{opacity:0;pointer-events:none;transition:opacity .3s}
+.home header.scrolled .brand{opacity:1;pointer-events:auto}
+@media(max-width:900px){.hero-logo img{height:74px}.hero-logo{top:22px}}
+.hero .bg{background:none;z-index:1}
+
+/* 320px: the two-up stat grid overflowed by 5px — stack it */
+@media (max-width:360px){.stats-float{grid-template-columns:1fr}}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Homepage hero rebuild — Oct 2026, from Chris Newbury's feedback
+     white background + very low-opacity photo, full-colour logo at size,
+     headline promoted, CTAs given weight, welcome copy moved below.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* the hero is light now, so the header reads dark from the very top instead of
+   waiting for the scroll class to land */
+header::before{opacity:0}
+header{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);
+  border-color:var(--hair);box-shadow:0 6px 24px rgba(16,28,58,.06)}
+header:not(.scrolled) .menu a{color:var(--muted)}
+header:not(.scrolled) .menu a:hover,
+header:not(.scrolled) .menu a.nav-active{color:var(--blue)}
+/* needs .menu a.nav-cta: plain .nav-cta loses to the .menu a rule above it */
+header:not(.scrolled) .menu a.nav-cta{background:var(--red);color:#fff}
+header:not(.scrolled) .menu a.nav-cta:hover{background:var(--red-deep);color:#fff}
+header:not(.scrolled) .burger{color:var(--blue);border-color:var(--hair)}
+/* bigger brand mark — the client could not see the old one.
+   The old layout hid .brand above 1429px because the big .hero-logo sat in the
+   corner instead; that logo is gone now, so the brand has to come back at
+   every width or the header is left empty. */
+.hero-logo{display:none}
+body.home .brand{opacity:1;pointer-events:auto}
+/* The header mark now lives in site.css so every page gets it - see the
+   'header mark' block there. Nothing page-specific is needed here. */
+
+/* ── the hero itself ────────────────────────────────────────────────────── */
+.hero.hero-light{
+  position:relative;overflow:hidden;color:var(--ink);background:#fff;
+  /* fill the first screen; svh keeps mobile browser chrome from clipping it */
+  min-height:100vh;min-height:100svh;
+  display:flex;align-items:center;
+  padding:clamp(158px,19vh,202px) 0 clamp(72px,8vw,104px)}
+.hero-light .hl-bg{position:absolute;inset:0;z-index:0;pointer-events:none;
+  overflow:hidden;
+  background:url(../images/background-01.jpg) center/cover no-repeat;
+  opacity:.78}   /* <- the one number that sets how strongly the video reads */
+.hero-light .hl-vid{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;display:block}
+@media(prefers-reduced-motion:reduce){.hero-light .hl-vid{display:none}}
+/* Two scrims instead of one: a soft wash from the left keeps the headline
+   column legible, while the right-hand side of the frame stays clear so the
+   video actually reads. The bottom fade hands off into the next section. */
+.hero-light::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,0) 68%,rgba(255,255,255,.72) 90%,#fff 100%),
+    linear-gradient(100deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.74) 34%,
+                    rgba(255,255,255,.34) 62%,rgba(255,255,255,.12) 100%)}
+@media(max-width:860px){
+  .hero-light::after{background:
+    linear-gradient(180deg,rgba(255,255,255,0) 72%,rgba(255,255,255,.74) 90%,#fff 100%),
+    linear-gradient(180deg,rgba(255,255,255,.90) 0%,rgba(255,255,255,.74) 48%,
+                    rgba(255,255,255,.52) 100%)}
+}
+/* Full width rather than centred in the 1200px column, which pushed the
+   headline far right of the logo on a wide screen. The left gutter is 6.2vw,
+   measured off the client's guide - a shade under the site's 7vw --pad, so
+   the hero sits almost flush with the sections below it. */
+.hl-in{position:relative;z-index:2;max-width:none;margin:0;
+  padding:0 var(--pad) 0 clamp(22px,6.2vw,122px);text-align:left;
+  display:flex;flex-direction:column;align-items:flex-start}
+
+/* short rule above the headline, as in the mockup */
+.hl-kick{display:block;width:92px;height:4px;border-radius:4px;
+  background:var(--orange);margin:0 0 clamp(20px,2.4vw,28px)}
+
+.hl-title{font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-weight:900;color:var(--ink-blue);
+  font-size:clamp(36px,5.9vw,70px);line-height:1.02;letter-spacing:-.035em;
+  margin:0;max-width:17ch}
+/* block, so "Instant Online Booking" always starts its own line instead of
+   trailing after "Upfront Pricing." and breaking mid-phrase */
+.hl-accent{color:var(--red);display:block}
+/* ...and on a desktop it never breaks either, so "Booking" always sits beside
+   "Online". max-width above is in ch units, which are measured against
+   whatever font is current - so for the instant before Archivo arrives the
+   wider fallback can push "Booking" onto a line of its own. This pins it. */
+@media(min-width:861px){.hl-accent{white-space:nowrap}}
+.hl-lead{font-size:clamp(17px,2.1vw,23px);color:var(--muted);font-weight:600;
+  margin:clamp(16px,2vw,22px) 0 clamp(28px,3.4vw,38px)}
+
+/* ── calls to action ────────────────────────────────────────────────────── */
+/* align-items:center, or the flex default (stretch) forces the secondary to
+   match the primary height and it stops reading as the smaller button */
+.hl-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  justify-content:flex-start;width:100%;max-width:640px}
+.hl-cta .btn{flex:1 1 260px;justify-content:center;font-size:17px;
+  padding:19px 34px;border-radius:100px}
+/* A white keyline lifts the red off the hero video, and the grey glow around
+   it does the work the old red halo was doing without smearing red onto the
+   button stacked beneath it on phones.
+   The nudge is a burst, not a loop: still for four and a half seconds, a
+   half-second shake, still again. A continuous wiggle is maddening to sit
+   next to; one that arrives, says something and stops reads as a prompt. */
+/* Three things run together here, all on a 3.6s beat so they land as one
+   gesture rather than three competing ones:
+     1. hlNudge  - the shake, ~1s of it, then stillness
+     2. hlHalo   - the grey glow breathing underneath
+     3. hlShine  - a light streak crossing the button as the shake ends
+   overflow:hidden clips the streak to the pill. It does not clip the glow,
+   because box-shadow is painted outside the border box. */
+.hl-primary{background:var(--red);color:#fff;position:relative;overflow:hidden;
+  border:2px solid #fff;
+  transform-origin:50% 65%;
+  animation:hlNudge 3.6s ease-in-out infinite,
+            hlHalo  3.6s ease-in-out infinite}
+.hl-primary::after{content:"";position:absolute;top:-60%;bottom:-60%;left:0;width:42%;
+  background:linear-gradient(100deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 50%,
+             rgba(255,255,255,0) 100%);
+  transform:translateX(-170%) skewX(-18deg);
+  animation:hlShine 3.6s ease-in-out infinite;
+  pointer-events:none}
+@keyframes hlShine{
+  0%,54%  {transform:translateX(-170%) skewX(-18deg)}
+  88%,100%{transform:translateX(400%)  skewX(-18deg)}}
+@keyframes hlHalo{
+  0%,58%,100%{box-shadow:0 8px 24px rgba(16,28,58,.20),
+                         0 0 24px 6px rgba(118,130,152,.34)}
+  72%        {box-shadow:0 12px 34px rgba(16,28,58,.28),
+                         0 0 52px 20px rgba(118,130,152,.62)}}
+@keyframes hlNudge{
+  0%,58%,100%{transform:rotate(0) scale(1)}
+  63%{transform:rotate(-2.6deg) scale(1.045)}
+  68%{transform:rotate(2.4deg)  scale(1.050)}
+  73%{transform:rotate(-1.8deg) scale(1.034)}
+  78%{transform:rotate(1.2deg)  scale(1.020)}
+  83%{transform:rotate(-.6deg)  scale(1.008)}
+  88%{transform:rotate(0) scale(1)}}
+/* animation:none rather than play-state:paused - a paused animation keeps
+   hold of transform, so the lift on hover would never apply */
+.hl-primary:hover,.hl-primary:focus-visible{background:var(--red-deep);color:#fff;
+  border-color:#fff;animation:none;transform:translateY(-3px);
+  box-shadow:0 16px 36px rgba(16,28,58,.26),
+             0 0 46px 16px rgba(118,130,152,.58)}
+.hl-primary:hover::after{animation:none;opacity:0}
+.hl-primary svg{transition:transform .2s}
+.hl-primary:hover svg{transform:translateX(4px)}
+/* deliberately smaller than the primary - it is the secondary action */
+/* needs .hl-cta to outrank `.hl-cta .btn` above, which sets 17px/20px padding */
+.hl-cta .hl-second{background:#fff;color:var(--red);border:2px solid var(--red);
+  font-size:16px;padding:16px 30px;flex:0 1 auto;box-shadow:none}
+.hl-second:hover,.hl-second:focus-visible{background:var(--red);color:#fff;
+  border-color:var(--red);
+  transform:translateY(-3px);box-shadow:0 14px 30px rgba(16,28,58,.12)}
+@media(prefers-reduced-motion:reduce){
+  .hl-primary{animation:none;transform:none}
+  .hl-primary::after{display:none}
+  .hl-primary:hover,.hl-second:hover{transform:none}
+  .hl-primary svg,.hl-second svg{transition:none}}
+
+/* ── the four selling points ────────────────────────────────────────────── */
+.hl-points{list-style:none;margin:clamp(30px,3.6vw,42px) 0 0;padding:0;width:100%;
+  max-width:640px;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px clamp(18px,3vw,34px)}
+/* sits on top of moving video, so it gets its own quiet surface */
+.hl-points{background:rgba(255,255,255,.82);backdrop-filter:blur(6px);
+  border:1px solid rgba(16,28,58,.09);border-radius:16px;
+  padding:18px clamp(18px,2.2vw,26px);
+  box-shadow:0 8px 26px rgba(16,28,58,.07)}
+.hl-points li{display:flex;align-items:center;gap:11px;
+  font-weight:700;font-size:clamp(15px,1.6vw,17px);color:var(--ink-blue);
+  white-space:nowrap}
+.hl-points li::before{content:"";width:22px;height:22px;border-radius:50%;flex:0 0 auto;
+  border:2px solid var(--orange);
+  background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230A4BAE' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/13px 13px no-repeat}
+
+.hl-serve{margin:clamp(30px,3.6vw,40px) 0 0;display:flex;align-items:center;gap:16px;
+  font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted)}
+.hl-serve::before,.hl-serve::after{content:"";height:1px;width:clamp(26px,6vw,64px);
+  background:var(--gray);flex:0 0 auto}
+
+@media(max-width:860px){.hl-title{max-width:none}}
+@media(max-width:560px){
+  .hero.hero-light{padding-top:clamp(128px,17vh,158px)}
+  .hl-cta{flex-direction:column;gap:16px}
+  .hl-cta .btn{flex:1 1 auto;width:100%;font-size:16.5px;padding:18px 24px}
+  .hl-points{gap:14px 18px}
+  .hl-points li{font-size:14.5px}
+}
+/* One column on a phone. Two across left "Licensed & insured" - the longest
+   of the four - with barely a hair of space beside the tick, and the column
+   rule almost touching the text. A single column gives every point the full
+   width of the card and reads far cleaner at this size. */
+@media(max-width:520px){
+  .hl-points{grid-template-columns:1fr;gap:12px;padding:16px 18px}
+  .hl-points li{font-size:15px}
+  .hl-points li::before{width:20px;height:20px;background-size:12px 12px}
+}
+
+/* ── the welcome copy, moved out of the hero ────────────────────────────── */
+.hl-intro{background:var(--soft-2)}
+.hl-intro-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);
+  gap:clamp(30px,4.4vw,72px);align-items:start}
+.hl-intro-copy .sec-title{font-size:clamp(26px,3.2vw,40px);margin:0 0 20px;max-width:20ch}
+.hl-intro-copy p{color:var(--muted);font-size:16.5px;line-height:1.72;margin:0;max-width:62ch}
+.hl-esop{background:linear-gradient(150deg,var(--blue-deep),var(--ink-blue));color:#fff;
+  border-radius:22px;padding:clamp(28px,3.4vw,40px);box-shadow:0 26px 60px rgba(13,24,48,.18)}
+.hl-esop b{display:block;font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-weight:800;font-size:19px;
+  margin:0 0 12px;letter-spacing:-.01em}
+.hl-esop p{color:rgba(255,255,255,.8);font-size:15px;line-height:1.62;margin:0}
+.hl-esop-link{display:inline-flex;align-items:center;gap:8px;margin-top:22px;
+  font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:700;color:var(--yellow)}
+.hl-esop-link:hover{color:#fff}
+.hl-esop-link svg{transition:transform .2s}
+.hl-esop-link:hover svg{transform:translateX(3px)}
+@media(max-width:900px){.hl-intro-grid{grid-template-columns:1fr}}
+
+
+
+
+/* ── accents on dark surfaces ────────────────────────────────────────────
+   Gold used to carry these; the logo blue does not - it measures about
+   3:1 on navy, which is under AA and reads as the blue-on-blue vibration.
+   On every dark surface the accent becomes the logo's chrome instead, and
+   the big heading goes plain white. */
+.how-sec .sec-title{color:#fff}
+.how-sec .eyebrow{color:var(--chrome)}
+.how-sec .eyebrow .ln{background:var(--chrome)}
+.how-sec .hnum{background:var(--chrome);color:var(--ink-blue)}
+.how-sec .how-steps::before{background:linear-gradient(90deg,rgba(255,255,255,.32),var(--chrome))}
+.how-sec .how-guide:hover{color:var(--chrome);border-color:var(--chrome)}
+.tcard2.a .kick{color:var(--chrome)}
+.tcard2.a:hover .ga{background:#fff;color:var(--ink-blue);border-color:#fff}
+.tcard2.a::before{background:var(--chrome)}
+.hl-esop .esop-badge{color:var(--chrome)}
+.hl-esop-link{color:var(--chrome)}
+.hl-esop-link:hover{color:#fff}
+
+/* ── homepage reviews block (cards themselves are styled by site.css) ───── */
+.hl-revs{padding:clamp(56px,7vw,86px) 0}
+.hl-rs{position:relative}
+.hl-revs-cta{margin-top:clamp(26px,3vw,38px)}
+.hl-nav{display:none}
+@media(max-width:900px) and (min-width:761px){.hl-revs .tgrid{grid-template-columns:1fr 1fr}}
+
+/* phones: swipe instead of a very long scroll. The track bleeds past the
+   wrap gutters so the neighbouring cards peek in either side. */
+@media(max-width:760px){
+  .hl-revs .tgrid{display:flex;grid-template-columns:none;gap:14px;
+    overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    margin-inline:calc(var(--pad) * -1);padding:2px 11vw 6px;
+    scrollbar-width:none}
+  .hl-revs .tgrid::-webkit-scrollbar{display:none}
+  .hl-revs .tc{flex:0 0 78vw;scroll-snap-align:center;margin:0}
+  .hl-nav{display:grid;place-items:center;position:absolute;top:50%;
+    transform:translateY(-50%);width:40px;height:40px;border-radius:50%;
+    background:#fff;border:1px solid var(--hair);color:var(--blue-deep);
+    box-shadow:0 6px 18px rgba(16,28,58,.14);cursor:pointer;z-index:3;padding:0}
+  .hl-nav svg{width:20px;height:20px}
+  .hl-nav.prev{left:-6px}
+  .hl-nav.next{right:-6px}
+  .hl-nav:disabled{opacity:.28;pointer-events:none}
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE: the arrangement from the client's phone mockup — content packed
+   under the header rather than centred, and the serving line in sentence
+   case. Colours stay as Chris asked: white ground, full-colour logo.
+   ═══════════════════════════════════════════════════════════════════════ */
+@media(max-width:860px){
+  /* the mockup sits its content just under the header rather than centred,
+     so on phones the hero stays full-height but packs to the top */
+  .hero.hero-light{align-items:flex-start;
+    padding-top:clamp(128px,17vh,152px)}
+
+  /* "Instant Online Booking" was breaking with "Booking" alone on its own
+     line; scale the headline down on phones so the phrase stays intact */
+  .hl-title{font-size:clamp(27px,7.6vw,46px)}
+
+  /* the two buttons read as a pair, so they share a width - the secondary is
+     smaller by height and type weight rather than by being narrower */
+  .hl-cta .hl-second{width:100%;align-self:stretch;
+    font-size:16px;padding:15px 24px}
+
+  /* the mockup reads this as a sentence, not a mono caps label. Darker than
+     desktop because on phones it sits over the brighter part of the video. */
+  .hl-serve{font-family:"Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    font-size:14px;letter-spacing:.02em;text-transform:none;color:#3B4663}
+  .hl-serve::before,.hl-serve::after{background:rgba(59,70,99,.42)}
+}
+}

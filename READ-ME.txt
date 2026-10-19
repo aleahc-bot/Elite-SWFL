@@ -1,0 +1,91 @@
+19 OCTOBER — LAFE + COLE ROUND, PLUS THE GOLD STARS
+33 .html files, 8 .css files, 2 .js files. Three drops, no zip.
+
+
+WHAT IS IN HERE
+====================================================================
+Four changes, and because one of them is the nav label, it touches
+every page. That is why the folder looks big — most of these files
+have a one-line difference.
+
+  1. Our Story timeline now reads 2019–Present       (Lafe)
+  2. The nav label is now an en dash everywhere      (Lafe)
+       Residential – Repairs & Service
+  3. Contact page has a PROPERTY TYPE row            (Cole)
+       Residential  |  Commercial / New Construction
+       It sits above Desired service(s) and is required.
+  4. Review stars are gold, not blue                 (you)
+       Gold on the white cards, a brighter gold on the navy
+       "5.0 Trusted across Southwest Florida" banner so it still
+       reads clearly against the dark blue.
+
+
+THE THREE DROPS
+====================================================================
+
+DROP 1 — repo ROOT  (33 .html files)
+--------------------------------------------------------------------
+  Everything in this folder that ends in .html.
+  Open the repo at its top level, Add file > Upload files, drag them
+  all in, commit. They replace the existing ones.
+
+
+DROP 2 — the  css  folder  (8 files)
+--------------------------------------------------------------------
+  apply.css   careers.css   index.css   new-construction.css
+  review.css  reviews.css   site.css    story.css
+
+  Click INTO the existing  css  folder FIRST, so the breadcrumb at the
+  top of the page reads   <repo> / css
+  Then Add file > Upload files, drag all eight in, commit.
+
+  site.css and reviews.css are the two carrying the gold stars.
+
+
+DROP 3 — the  js  folder  (2 files)
+--------------------------------------------------------------------
+  site.js
+  actionbar.js
+
+  Click INTO the existing  js  folder FIRST (breadcrumb reads
+  <repo> / js), then upload both and commit.
+
+  actionbar.js also fixes the nav label on any page that is still
+  running the old markup, so the en dash is right everywhere the
+  moment this file lands.
+
+
+A NOTE ON THE FILE NAMES
+====================================================================
+If Windows has added  -1  to the end of anything (site-1.css,
+actionbar-1.js), that file will NOT work — GitHub treats it as a
+brand new file sitting beside the old one and nothing changes on the
+site. That is what was happening for the last few weeks.
+
+These files are written straight into this folder rather than
+downloaded, so they should be clean. Worth a glance before you upload.
+
+
+CHECK IT WORKED
+====================================================================
+After Vercel finishes its deploy:
+
+  1. Reviews page — the five stars under 5.0 are gold, not blue.
+  2. Contact page — PROPERTY TYPE appears above DESIRED SERVICE(S),
+     and the form will not submit until one is picked.
+  3. Our Story — the last milestone reads 2019–Present.
+  4. Any page's Services menu — "Residential – Repairs & Service"
+     with the long dash.
+
+
+STILL OUTSTANDING
+====================================================================
+  Delete  services-generators.html  from the repo root.
+  The menu no longer links to it, but the page is still there and I
+  cannot delete it from here.
+  GitHub: open the file > three dots, top right > Delete file.
+
+  Waiting on Chris: technician photos, the team photo, the
+  Materials/Parts portfolio link, 36 of the 41 community photos, and
+  the Whispering Lakes duplicate (it is listed under both Pulte and
+  M/I Homes).

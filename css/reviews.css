@@ -1,0 +1,152 @@
+/* reviews — page-specific styles */
+@media (max-width:1180px){.nav-dd{flex-direction:column;align-items:flex-start;width:100%}.nav-dd .caret{display:none}.nav-dd .dd{position:static;opacity:1;visibility:visible;transform:none;margin:8px 0 0;padding:0 0 0 14px;background:transparent;border:none;box-shadow:none;min-width:0;border-left:1px solid rgba(255,255,255,.18)}.nav-dd::after{display:none}.menu .nav-dd .dd a{color:rgba(255,255,255,.82);padding:8px 0}.menu .nav-dd .dd a:hover{background:transparent;color:#fff}}
+@media (max-width:1429px){.hero-logo{display:none}body.home .brand{opacity:1;pointer-events:auto}}
+@media (max-width:1180px){
+  .menu{position:fixed;inset:84px 0 auto 0;flex-direction:column;background:var(--ink-blue);padding:22px var(--pad) 30px;gap:22px;align-items:flex-start;transform:translateY(-130%);transition:transform .3s;height:auto;max-height:calc(100vh - 84px);max-height:calc(100dvh - 84px);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  header.scrolled .menu{background:#fff;border-bottom:1px solid var(--hair)}
+  .menu.open{transform:translateY(0)}
+  .menu a{font-size:16px;color:#fff}header.scrolled .menu a{color:var(--muted)}
+  .menu .nav-cta{align-self:stretch;justify-content:center;font-size:15px;padding:14px}
+  .burger{display:flex}
+}
+.hero{min-height:100vh;display:flex;align-items:flex-end;color:#fff;overflow:hidden;
+  padding-top:150px;padding-bottom:clamp(120px,14vw,190px)}
+.hero .bg{position:absolute;inset:0;z-index:0;background:#101C3A center/cover no-repeat;background-image:var(--hero-img,none)}
+.h-title{font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-weight:900;font-size:clamp(54px,10vw,140px);line-height:.86;letter-spacing:-.04em;color:#fff;margin:0}
+@keyframes cue{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
+@media (max-width:980px){.h-vlabel,.scrollcue{display:none}}
+@media (prefers-reduced-motion:reduce){.scrollcue .bar{animation:none}}
+.stats-wrap{position:relative;z-index:10;margin-top:clamp(-90px,-8vw,-70px);padding-bottom:clamp(30px,5vw,60px)}
+@media (max-width:820px){.stats-float{grid-template-columns:1fr 1fr}.sf{border-left:1px solid var(--hair);border-top:1px solid var(--hair)}.sf:nth-child(-n+2){border-top:none}.sf:nth-child(odd){border-left:none}}
+.trades{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:820px){.svc-head{grid-template-columns:1fr;gap:14px}.trades{grid-template-columns:1fr}.svc-grid{grid-template-columns:1fr}}
+@keyframes pulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+@media (prefers-reduced-motion:reduce){.play::before{animation:none}}
+@media (max-width:900px){.story-in{grid-template-columns:1fr;gap:34px}}
+.htl{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:40px;position:relative}
+.htl::before{content:"";position:absolute;left:0;right:0;top:7px;height:2px;background:linear-gradient(90deg,var(--blue),var(--orange))}
+.ht{position:relative;padding-top:38px}
+.ht::before{content:"";position:absolute;left:0;top:0;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--blue)}
+.ht:last-child::before{background:var(--orange);border-color:var(--orange-deep)}
+.ht .yr{font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-weight:700;font-size:12px;letter-spacing:.14em;color:var(--orange-deep)}
+.ht h3{font-weight:800;font-size:20px;margin:10px 0 8px;letter-spacing:-.01em}
+.ht p{color:var(--muted);margin:0;font-size:14.5px;line-height:1.55}
+@media (max-width:860px){
+  .htl{grid-template-columns:1fr;gap:0;margin-top:40px;padding-left:34px}
+  .htl::before{left:6px;right:auto;top:6px;bottom:6px;width:2px;height:auto;background:linear-gradient(180deg,var(--blue),var(--orange))}
+  .ht{padding:0 0 40px 6px}
+  .ht::before{left:-34px;top:3px}
+}
+@media (max-width:900px){.tgrid{grid-template-columns:1fr}}
+@media (max-width:900px){.cgrid{grid-template-columns:1fr;gap:40px}.two{grid-template-columns:1fr}}
+@media (max-width:820px){.ft{grid-template-columns:1fr 1fr}.fb{grid-column:1/-1}}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+.page-banner{position:relative;overflow:hidden;color:#fff;padding-top:clamp(148px,19vh,188px);padding-bottom:clamp(64px,8vw,94px);background:#101C3A center/cover no-repeat}
+.tcard2{display:block;border-radius:22px;padding:36px;border:1px solid var(--hair);background:#fff;transition:transform .25s,box-shadow .25s,border-color .25s;position:relative;overflow:hidden}
+.tcard2.a::before{background:var(--blue)}
+.tcard2 .ico{width:56px;height:56px;border-radius:15px;display:grid;place-items:center;margin-bottom:22px;color:#fff}
+.tcard2 p{color:var(--muted);font-size:15px;margin:16px 0 20px;line-height:1.55}
+.tcard2 .go{font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);font-weight:700;display:inline-flex;align-items:center;gap:8px;transition:gap .2s}
+@media (max-width:820px){.tcards{grid-template-columns:1fr}}
+.why{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:48px}
+.wcard .wi{width:50px;height:50px;border-radius:14px;background:rgba(11,99,224,.10);border:1px solid rgba(11,99,224,.22);display:grid;place-items:center;color:var(--orange-deep);margin-bottom:20px}
+@media (max-width:900px){.why{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.why{grid-template-columns:1fr}}
+@media (max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+@media (max-width:820px){.values{grid-template-columns:1fr}}
+.rsum{display:flex;align-items:center;gap:30px;flex-wrap:wrap;background:var(--soft);border:1px solid var(--hair);border-radius:20px;padding:32px 36px;margin-bottom:42px}
+.rsum .big{font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;font-weight:900;font-size:60px;color:var(--blue-deep);line-height:1;letter-spacing:-.03em}
+.rsum .rmeta{font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.hero .bgvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.tslider{position:relative}
+.tslider .tgrid{display:flex;grid-template-columns:none;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding:6px 2px 10px;-ms-overflow-style:none;scrollbar-width:none}
+.tslider .tgrid::-webkit-scrollbar{display:none}
+.tslider .tc{min-width:clamp(290px,33%,384px);scroll-snap-align:start}
+.tnav{position:absolute;top:44%;transform:translateY(-50%);z-index:5;width:48px;height:48px;border-radius:50%;border:1px solid var(--hair);background:#fff;color:var(--blue-deep);display:grid;place-items:center;cursor:pointer;box-shadow:0 14px 32px rgba(13,24,48,.16);transition:background .2s,color .2s,transform .2s,opacity .2s}
+.tnav:hover{background:var(--blue);color:#fff;transform:translateY(-50%) scale(1.06);border-color:var(--blue)}
+.tnav.prev{left:-14px}
+.tnav.next{right:-14px}
+.tnav svg{width:20px;height:20px}
+@media (max-width:640px){.tnav{top:auto;bottom:-2px;transform:none;box-shadow:0 10px 24px rgba(13,24,48,.16)} .tnav:hover{transform:scale(1.06)} .tnav.prev{left:calc(50% - 58px)} .tnav.next{right:calc(50% - 58px)} .tslider .tgrid{padding-bottom:66px}}
+.rsum{background:linear-gradient(130deg,var(--blue),var(--ink-blue));border-color:transparent;box-shadow:0 24px 60px rgba(13,24,48,.2)}
+.rsum .big{color:#fff}
+.rsum .rmeta{color:rgba(255,255,255,.72)}
+/* the summary card is navy here, so the stars take the brighter gold */
+.rsum .rstars svg{color:var(--gold-bright)}
+.rev-cta{margin-left:auto}
+@media (max-width:640px){.rev-cta{margin-left:0;width:100%;justify-content:center}}
+.tc.sample{border:1.5px dashed var(--gray);background:var(--soft-2)}
+.tc.sample .q{color:var(--muted)}
+.tc.sample .av{background:var(--gray);color:#fff;border-color:var(--gray)}
+.tc.sample .who span{color:var(--orange-deep)}
+.page-banner{background-image:url(../images/background-06.jpg)}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Reviews page — Oct 2026
+   Desktop: masonry grid, collapsed to a couple of rows with a "view all"
+   toggle. Mobile: a swipe carousel, because 15 stacked cards ran very long.
+   The collapse is applied by script, so with JavaScript off every review
+   stays visible and crawlable.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.tslider{position:relative}
+.tslider .tgrid{display:block;columns:3;column-gap:22px;overflow:visible;scroll-snap-type:none;padding:0}
+.tslider .tc{min-width:0;width:100%;margin:0 0 22px;
+  break-inside:avoid;-webkit-column-break-inside:avoid;page-break-inside:avoid;scroll-snap-align:none}
+.tnav{display:none}                 /* dead controls, kept hidden if any remain */
+@media(max-width:1100px){.tslider .tgrid{columns:2}}
+
+/* collapsed state + fade */
+/* Collapse by hiding whole cards rather than capping the container height:
+   in a multi-column layout a height cap plus break-inside:avoid empties the
+   column whenever the next card will not fit, leaving a band of dead space.
+   Counting cards cuts cleanly on a card edge every time. */
+.tslider.is-collapsed .tc:nth-child(n+7){display:none}
+.rv-more{display:none;justify-content:center;margin-top:26px;position:relative;z-index:2}
+.tslider.has-toggle .rv-more{display:flex}
+.rv-more .btn{min-width:240px;justify-content:center}
+.rv-swipe{display:none}
+
+@media(prefers-reduced-motion:reduce){.rv-more .btn{transition:none}}
+
+/* ── phones: one card centred, neighbours peeking, arrows to step ─────── */
+@media(max-width:760px){
+  /* 11vw of padding either side lets the first and last card sit centred,
+     so a slice of the next and previous card always shows */
+  .tslider .tgrid{display:flex;columns:auto;column-gap:0;gap:14px;
+    overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
+    scrollbar-width:none;
+    /* bleed past the wrap's gutters so the maths is all in vw and the
+       neighbouring cards peek right to the edge of the screen */
+    margin-inline:calc(var(--pad) * -1);padding:2px 11vw 6px}
+  .tslider .tgrid::-webkit-scrollbar{display:none}
+  .tslider .tc{flex:0 0 78vw;min-width:0;max-width:none;margin:0;scroll-snap-align:center;break-inside:auto}
+  /* a carousel does not collapse */
+  .tslider.is-collapsed .tgrid{max-height:none;overflow-x:auto;overflow-y:hidden}
+  .tslider.is-collapsed .tc:nth-child(n+7){display:flex}
+  .rv-more,.tslider.has-toggle .rv-more{display:none}
+
+  .tnav{display:grid;place-items:center;position:absolute;z-index:4;cursor:pointer;
+    top:50%;bottom:auto;transform:translateY(-50%);
+    width:40px;height:40px;border-radius:50%;
+    border:1px solid var(--hair);background:#fff;color:var(--blue-deep);
+    box-shadow:0 10px 26px rgba(13,24,48,.20);
+    transition:background .2s,color .2s,opacity .2s}
+  .tnav.prev{left:4px;right:auto}
+  .tnav.next{right:4px;left:auto}
+  .tnav svg{width:17px;height:17px}
+  .tnav:hover,.tnav:active{background:var(--blue);color:#fff;border-color:var(--blue);
+    transform:translateY(-50%)}
+  .tnav:disabled{opacity:.3;pointer-events:none}
+  .tnav:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+}
+@media(max-width:760px) and (prefers-reduced-motion:reduce){
+  .tslider .tgrid{scroll-behavior:auto}
+  .tnav{transition:none}
+}
+
+/* review count under the rating */
+.rsum .rcount{font-family:"Space Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(255,255,255,.72);margin-top:6px}
+.rsum{margin-bottom:34px}
