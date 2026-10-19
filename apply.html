@@ -81,7 +81,7 @@
       </div>
     </aside>
 
-    <form class="ap-form" id="apForm" method="post" action="apply.php" novalidate>
+    <form class="ap-form" id="apForm" method="post" action="/api/send" novalidate>
       <p class="ap-req"><span class="ap-star">*</span> Required</p>
 
       <div class="ap-field">
@@ -169,6 +169,23 @@
         <textarea id="notes" name="notes" rows="3"></textarea>
       </div>
 
+      <div class="ap-field rz-wrap"><label for="rzInput">Attach your r&eacute;sum&eacute; <span class="rz-opt">(optional)</span></label>
+        <div class="rz" id="rz" role="button" tabindex="0" aria-describedby="rzHint">
+          <input type="file" id="rzInput" name="resume" hidden accept=".pdf,.doc,.docx,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain">
+          <div class="rz-empty" id="rzEmpty">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 16v2.5A2.5 2.5 0 006.5 21h11a2.5 2.5 0 002.5-2.5V16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <b>Drop your r&eacute;sum&eacute; here</b>
+            <span id="rzHint">or <u>browse</u> &mdash; PDF or Word, up to 3&nbsp;MB</span>
+          </div>
+          <div class="rz-file" id="rzFile" hidden>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8zm0 0v5h5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="rz-name" id="rzName"></span><span class="rz-size" id="rzSize"></span>
+            <button type="button" class="rz-x" id="rzX" aria-label="Remove the attached file">&times;</button>
+          </div>
+        </div>
+        <p class="rz-err" id="rzErr" role="alert" hidden></p>
+      </div>
+
       <!-- honeypot: real people never see or fill this -->
       <div class="ap-hp" aria-hidden="true">
         <label for="company_website">Company website</label>
@@ -182,6 +199,10 @@
       <p class="ap-small">Elite Electrical Contractors is an equal-opportunity employer.</p>
       <p class="ap-err" id="apErr" role="alert" hidden></p>
     </form>
+    <div class="ap-sent" id="apSent" hidden>
+      <h2>Thank you &mdash; your application is in.</h2>
+      <p>Jennifer will be in touch. If you need us sooner, call 239.561.1314.</p>
+    </div>
 
   </div>
 </div></section>
@@ -217,6 +238,8 @@
 
   /* keep the browser's own validation but surface one clear message */
   var f=document.getElementById('apForm'), err=document.getElementById('apErr');
+  var sent=document.getElementById('apSent'),
+      btn=f.querySelector('button[type=submit]');
   f.addEventListener('submit',function(ev){
     if(!f.checkValidity()){
       ev.preventDefault();
@@ -224,7 +247,90 @@
       err.textContent='Please fill in the required fields marked with an asterisk.';
       err.hidden=false;
       var bad=f.querySelector(':invalid'); if(bad){bad.focus();}
+      return;
     }
+    if(!window.fetch||!window.FormData) return;   /* very old browser: plain post */
+    ev.preventDefault();
+    err.hidden=true;
+    var label=btn?btn.innerHTML:'';
+    if(btn){btn.disabled=true;btn.innerHTML='Sending\u2026';}
+    var fd=new FormData(f), payload={kind:'application'};
+    fd.forEach(function(v,k){
+      if(k.slice(-2)==='[]'){var b=k.slice(0,-2);(payload[b]=payload[b]||[]).push(v);}
+      else if(k!=='resume'){payload[k]=v;}
+    });
+    if(window.__resume) payload.resume=window.__resume;
+    fetch(f.action,{method:'POST',body:JSON.stringify(payload),
+        headers:{'Accept':'application/json','Content-Type':'application/json'}})
+      .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
+      .then(function(d){
+        if(d&&d.ok){f.hidden=true;sent.hidden=false;sent.setAttribute('role','status');
+          try{sent.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){sent.scrollIntoView();}
+          return;}
+        throw new Error((d&&d.message)||'send failed');
+      })
+      .catch(function(e){
+        if(btn){btn.disabled=false;btn.innerHTML=label;}
+        err.textContent=(e.message&&e.message!=='send failed')?e.message:
+          'We could not send that just now \u2014 please call 239.561.1314.';
+        err.hidden=false;
+      });
+  });
+})();
+</script>
+<script>
+/* ---- resume drop zone -------------------------------------------------- */
+(function(){
+  var MAX = 3*1024*1024;
+  var OK = /\.(pdf|docx?|txt)$/i;
+  var zone=document.getElementById('rz'), input=document.getElementById('rzInput'),
+      empty=document.getElementById('rzEmpty'), row=document.getElementById('rzFile'),
+      nm=document.getElementById('rzName'), sz=document.getElementById('rzSize'),
+      x=document.getElementById('rzX'), err=document.getElementById('rzErr');
+  if(!zone||!input) return;
+  window.__resume = null;
+
+  function fail(msg){ err.textContent=msg; err.hidden=false; clear(); }
+  function clear(){ window.__resume=null; input.value=''; row.hidden=true; empty.hidden=false; }
+
+  function take(file){
+    err.hidden=true;
+    if(!file) return;
+    if(!OK.test(file.name)) return fail('Please attach a PDF or Word document.');
+    if(file.size > MAX)     return fail('That file is '+(file.size/1048576).toFixed(1)+' MB. Please attach one under 3 MB.');
+    var fr=new FileReader();
+    fr.onerror=function(){ fail('That file could not be read — try saving it as a PDF.'); };
+    fr.onload=function(){
+      /* strip the "data:...;base64," prefix — the endpoint wants raw base64 */
+      var s=String(fr.result), c=s.indexOf(',');
+      window.__resume={name:file.name, type:file.type||'application/octet-stream', data:s.slice(c+1)};
+      nm.textContent=file.name;
+      sz.textContent=(file.size/1024>=1024 ? (file.size/1048576).toFixed(1)+' MB'
+                                           : Math.round(file.size/1024)+' KB');
+      empty.hidden=true; row.hidden=false;
+    };
+    fr.readAsDataURL(file);
+  }
+
+  zone.addEventListener('click', function(e){ if(e.target!==x) input.click(); });
+  zone.addEventListener('keydown', function(e){
+    if(e.key==='Enter'||e.key===' '){ e.preventDefault(); input.click(); }
+  });
+  input.addEventListener('change', function(){ take(input.files && input.files[0]); });
+  x.addEventListener('click', function(e){ e.stopPropagation(); err.hidden=true; clear(); });
+
+  ['dragenter','dragover'].forEach(function(ev){
+    zone.addEventListener(ev, function(e){ e.preventDefault(); zone.classList.add('over'); });
+  });
+  ['dragleave','drop'].forEach(function(ev){
+    zone.addEventListener(ev, function(e){ e.preventDefault(); zone.classList.remove('over'); });
+  });
+  zone.addEventListener('drop', function(e){
+    var dt=e.dataTransfer; if(dt && dt.files && dt.files.length) take(dt.files[0]);
+  });
+  /* a file dropped anywhere else should not navigate the page away */
+  ['dragover','drop'].forEach(function(ev){
+    document.addEventListener(ev, function(e){ if(!zone.contains(e.target)) e.preventDefault(); });
   });
 })();
 </script>

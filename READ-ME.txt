@@ -1,33 +1,25 @@
-19 OCTOBER — LAFE + COLE ROUND, PLUS THE GOLD STARS
-33 .html files, 8 .css files, 2 .js files. Three drops, no zip.
+ELITE ELECTRICAL — EVERYTHING WAITING TO GO UP
+33 .html  ·  8 .css  ·  2 .js  ·  1 new  api  folder
 
 
-WHAT IS IN HERE
+READ THIS FIRST
 ====================================================================
-Four changes, and because one of them is the nav label, it touches
-every page. That is why the folder looks big — most of these files
-have a one-line difference.
+Nothing in here has reached the live site yet. That is a Vercel problem,
+not a file problem — your commits are landing, the builds are not running.
+The moment deploys resume, uploading this folder puts all of it live.
 
-  1. Our Story timeline now reads 2019–Present       (Lafe)
-  2. The nav label is now an en dash everywhere      (Lafe)
-       Residential – Repairs & Service
-  3. Contact page has a PROPERTY TYPE row            (Cole)
-       Residential  |  Commercial / New Construction
-       It sits above Desired service(s) and is required.
-  4. Review stars are gold, not blue                 (you)
-       Gold on the white cards, a brighter gold on the navy
-       "5.0 Trusted across Southwest Florida" banner so it still
-       reads clearly against the dark blue.
+There is ONE new thing that needs setting up by hand before it works:
+the résumé upload needs an API key. Details at the bottom. Everything
+else works the moment it is uploaded.
 
 
-THE THREE DROPS
+THE FOUR DROPS
 ====================================================================
 
 DROP 1 — repo ROOT  (33 .html files)
 --------------------------------------------------------------------
-  Everything in this folder that ends in .html.
-  Open the repo at its top level, Add file > Upload files, drag them
-  all in, commit. They replace the existing ones.
+  Everything in this folder ending in .html.
+  Add file > Upload files at the top level of the repo, commit.
 
 
 DROP 2 — the  css  folder  (8 files)
@@ -35,57 +27,107 @@ DROP 2 — the  css  folder  (8 files)
   apply.css   careers.css   index.css   new-construction.css
   review.css  reviews.css   site.css    story.css
 
-  Click INTO the existing  css  folder FIRST, so the breadcrumb at the
-  top of the page reads   <repo> / css
-  Then Add file > Upload files, drag all eight in, commit.
-
-  site.css and reviews.css are the two carrying the gold stars.
+  Click INTO the existing  css  folder FIRST — the breadcrumb must read
+  <repo> / css  — then upload and commit.
 
 
 DROP 3 — the  js  folder  (2 files)
 --------------------------------------------------------------------
-  site.js
-  actionbar.js
+  site.js   actionbar.js
 
-  Click INTO the existing  js  folder FIRST (breadcrumb reads
-  <repo> / js), then upload both and commit.
-
-  actionbar.js also fixes the nav label on any page that is still
-  running the old markup, so the en dash is right everywhere the
-  moment this file lands.
+  Click INTO  js  first (breadcrumb reads  <repo> / js ), upload, commit.
 
 
-A NOTE ON THE FILE NAMES
+DROP 4 — a NEW  api  folder  (1 file)        <- this one is different
+--------------------------------------------------------------------
+  send.js
+
+  This folder does not exist in the repo yet, so you have to create it as
+  you upload. On GitHub:
+
+    1. At the top level of the repo: Add file > Create new file
+    2. In the filename box type exactly:   api/send.js
+       Typing the slash turns  api  into a folder — that is the trick.
+    3. Open  send.js  from this folder in Notepad, copy everything,
+       paste it into the big box on GitHub.
+    4. Commit.
+
+  Vercel runs anything in  /api  automatically. No install, no settings.
+
+
+WHAT CHANGED
 ====================================================================
-If Windows has added  -1  to the end of anything (site-1.css,
-actionbar-1.js), that file will NOT work — GitHub treats it as a
-brand new file sitting beside the old one and nothing changes on the
-site. That is what was happening for the last few weeks.
 
-These files are written straight into this folder rather than
-downloaded, so they should be clean. Worth a glance before you upload.
+1. RÉSUMÉ UPLOAD — Contact and Apply                         NEW
+   A drag-and-drop box on both forms. Drop a PDF or Word file on it, or
+   click to browse. It shows the filename and size with an X to remove,
+   refuses anything that is not a PDF/Word file, and refuses anything
+   over 3 MB with a plain message rather than failing silently.
+
+   Both forms now send to  /api/send  instead of the .php files. That
+   matters: Vercel never ran the PHP, it served it as a download — which
+   is why the contact form has not actually been sending.
+
+2. CAREERS — room in the expanded job panel
+   Clicking a job used to drop the detail 4px under "Hide details" with
+   nothing between them. There is now a hairline, 26px of air above, and
+   the panel lines up with the open row's indent.
+
+3. REVIEW STARS — gold, not blue
+   Gold on the white cards, a brighter gold on the navy 5.0 banner.
+
+4. CONTACT — Property type row              (Cole)
+   Residential | Commercial / New Construction, above Desired service(s),
+   required.
+
+5. OUR STORY — 2019–Present                 (Lafe)
+
+6. THE EN DASH — Residential – Repairs & Service   (Lafe)
+   Nav, dropdown, page heading and browser tab on every page.
 
 
-CHECK IT WORKED
+THE ONE SETUP STEP — THE RÉSUMÉ KEY
 ====================================================================
-After Vercel finishes its deploy:
+The upload box works the moment it is uploaded, but the email it sends
+needs a mail service behind it. Fifteen minutes, free at this volume.
 
-  1. Reviews page — the five stars under 5.0 are gold, not blue.
-  2. Contact page — PROPERTY TYPE appears above DESIRED SERVICE(S),
-     and the form will not submit until one is picked.
-  3. Our Story — the last milestone reads 2019–Present.
-  4. Any page's Services menu — "Residential – Repairs & Service"
-     with the long dash.
+  1. Sign up at resend.com (free tier).
+  2. Add the domain  elite1314.com  and follow their DNS steps, or use
+     their test sender while you try it.
+  3. Create an API key, copy it.
+  4. In Vercel: your project > Settings > Environment Variables, add:
+
+        RESEND_API_KEY    the key you just copied
+        MAIL_FROM         website@elite1314.com
+        MAIL_TO_CONTACT   jennifer@elite1314.com
+        MAIL_TO_JOBS      jennifer@elite1314.com
+
+  5. Redeploy.
+
+The key lives in Vercel, never in the repo. That is deliberate — Vercel
+serves .php as a readable download, so anything put inside send.php was
+public. This cannot repeat that.
+
+Until the key is set, the forms show "the site is not finished connecting
+to its mail service yet" and give the phone number, rather than pretending
+to send. Nothing is lost quietly.
+
+MAIL_TO_CONTACT and MAIL_TO_JOBS are both jennifer@ for now. When Chipper
+sets up the new addresses, change them in Vercel — no file edits, no
+upload, no redeploy of the site itself.
 
 
 STILL OUTSTANDING
 ====================================================================
-  Delete  services-generators.html  from the repo root.
-  The menu no longer links to it, but the page is still there and I
-  cannot delete it from here.
-  GitHub: open the file > three dots, top right > Delete file.
+  Delete  services-generators.html  from the repo root. The menu no
+  longer links to it, but the page is still sitting there.
 
-  Waiting on Chris: technician photos, the team photo, the
-  Materials/Parts portfolio link, 36 of the 41 community photos, and
-  the Whispering Lakes duplicate (it is listed under both Pulte and
-  M/I Homes).
+  The three duplicate Vercel projects — elite-electrical,
+  elite-electrical-1314, elite1314. None owns the live URL, and each one
+  builds on every commit, so one upload costs four deployments.
+
+  Waiting on Elite: the team photo for Careers (name it exactly
+  careers-photo.jpg and drop it in the images folder — the slot is
+  already built), technician photos, the Materials/Parts portfolio link,
+  36 of the 41 community photos, and the Whispering Lakes duplicate
+  (listed under both Pulte and M/I Homes).
