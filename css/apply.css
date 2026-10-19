@@ -110,3 +110,37 @@ header:not(.scrolled) .burger{color:var(--blue);border-color:var(--hair)}
 @media (prefers-reduced-motion:reduce){
   .ap-field input,.ap-field select,.ap-field textarea{transition:none}
 }
+
+/* ---- resume drop zone -------------------------------------------------- */
+.rz{position:relative;display:block;width:100%;border:1.5px dashed var(--gray);
+  border-radius:14px;background:var(--soft);padding:22px 18px;text-align:center;
+  cursor:pointer;transition:border-color .2s,background .2s,transform .18s}
+.rz:hover{border-color:var(--blue);background:#fff}
+.rz.over{border-color:var(--blue);border-style:solid;background:#fff;transform:scale(1.01)}
+.rz:focus-within{outline:2px solid var(--blue);outline-offset:2px}
+.rz-empty{display:flex;flex-direction:column;align-items:center;gap:5px;pointer-events:none}
+.rz-empty svg{width:26px;height:26px;color:var(--blue);margin-bottom:2px}
+.rz-empty b{font-size:14.5px;color:var(--blue-deep);font-weight:700}
+.rz-empty span{font-size:12.5px;color:var(--muted)}
+.rz-empty u{text-decoration-thickness:1px;text-underline-offset:2px}
+.rz-file{display:flex;align-items:center;gap:11px;text-align:left}
+.rz-file svg{width:22px;height:22px;flex:0 0 auto;color:var(--blue)}
+.rz-name{flex:1 1 auto;min-width:0;font-size:14px;color:var(--blue-deep);font-weight:600;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rz-size{flex:0 0 auto;font-family:"Space Mono",ui-monospace,Consolas,monospace;
+  font-size:11px;color:var(--muted)}
+.rz-x{flex:0 0 auto;width:26px;height:26px;border:0;border-radius:50%;cursor:pointer;
+  background:rgba(13,24,48,.07);color:var(--blue-deep);font-size:17px;line-height:1;
+  display:grid;place-items:center;transition:background .2s}
+.rz-x:hover{background:rgba(196,42,42,.14);color:var(--red)}
+.rz-err{margin:8px 0 0;font-size:13px;color:var(--red);font-weight:600}
+.rz-opt{font-weight:400;opacity:.72}
+@media(prefers-reduced-motion:reduce){.rz,.rz.over{transition:none;transform:none}}
+
+/* the apply form's fields are stacked, so the zone matches their rhythm */
+.ap-field .rz{margin-top:4px}
+.ap-sent{background:var(--soft);border:1px solid var(--hair);border-radius:16px;
+  padding:clamp(26px,4vw,44px);text-align:center}
+.ap-sent h2{margin:0 0 10px;font-family:"Archivo",system-ui,sans-serif;
+  font-weight:800;font-size:clamp(21px,2.4vw,27px);color:var(--blue-deep)}
+.ap-sent p{margin:0;color:var(--muted);font-size:15.5px;line-height:1.6}
