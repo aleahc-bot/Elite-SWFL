@@ -573,6 +573,31 @@ header.scrolled .brand .l-navy{opacity:1}
 .ptype{margin-bottom:18px}
 /* uneven split: "New Construction" needs more room than "Residential", and
    forcing them equal is what pushed it onto a third line */
+/* ---- resume drop zone -------------------------------------------------- */
+.rz{position:relative;display:block;width:100%;border:1.5px dashed var(--gray);
+  border-radius:14px;background:var(--soft);padding:22px 18px;text-align:center;
+  cursor:pointer;transition:border-color .2s,background .2s,transform .18s}
+.rz:hover{border-color:var(--blue);background:#fff}
+.rz.over{border-color:var(--blue);border-style:solid;background:#fff;transform:scale(1.01)}
+.rz:focus-within{outline:2px solid var(--blue);outline-offset:2px}
+.rz-empty{display:flex;flex-direction:column;align-items:center;gap:5px;pointer-events:none}
+.rz-empty svg{width:26px;height:26px;color:var(--blue);margin-bottom:2px}
+.rz-empty b{font-size:14.5px;color:var(--blue-deep);font-weight:700}
+.rz-empty span{font-size:12.5px;color:var(--muted)}
+.rz-empty u{text-decoration-thickness:1px;text-underline-offset:2px}
+.rz-file{display:flex;align-items:center;gap:11px;text-align:left}
+.rz-file svg{width:22px;height:22px;flex:0 0 auto;color:var(--blue)}
+.rz-name{flex:1 1 auto;min-width:0;font-size:14px;color:var(--blue-deep);font-weight:600;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rz-size{flex:0 0 auto;font-family:"Space Mono",ui-monospace,Consolas,monospace;
+  font-size:11px;color:var(--muted)}
+.rz-x{flex:0 0 auto;width:26px;height:26px;border:0;border-radius:50%;cursor:pointer;
+  background:rgba(13,24,48,.07);color:var(--blue-deep);font-size:17px;line-height:1;
+  display:grid;place-items:center;transition:background .2s}
+.rz-x:hover{background:rgba(196,42,42,.14);color:var(--red)}
+.rz-err{margin:8px 0 0;font-size:13px;color:var(--red);font-weight:600}
+.rz-opt{font-weight:400;opacity:.72}
+@media(prefers-reduced-motion:reduce){.rz,.rz.over{transition:none;transform:none}}
 .pt-pills{display:grid;grid-template-columns:.84fr 1.16fr;gap:9px;align-items:stretch}
 .pt-pill{display:block;height:100%}
 .pt-pill span{display:flex;align-items:center;gap:9px;width:100%;height:100%;
@@ -661,7 +686,7 @@ header.scrolled .brand .l-navy{opacity:1}
       <div class="detail"><div class="di"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6.5h18v11a1 1 0 01-1 1H4a1 1 0 01-1-1v-11zm0 0l9 6 9-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="dt"><small>Residential &mdash; Email us</small><b><a href="mailto:homeservices@elite1314.com">homeservices@elite1314.com</a></b></div></div><div class="detail"><div class="di"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6.5h18v11a1 1 0 01-1 1H4a1 1 0 01-1-1v-11zm0 0l9 6 9-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="dt"><small>Commercial &amp; New Construction &mdash; Email us</small><b><a href="mailto:chris@elite1314.com">chris@elite1314.com</a></b></div></div><div class="detail"><div class="di"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6.5h18v11a1 1 0 01-1 1H4a1 1 0 01-1-1v-11zm0 0l9 6 9-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="dt"><small>Careers &amp; hiring &mdash; Email us</small><b><a href="mailto:jennifer@elite1314.com">jennifer@elite1314.com</a></b></div></div>
       <div class="detail"><div class="di"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/></svg></div><div class="dt"><small>Service area</small><b>Cape Coral · Fort Myers · SW Florida</b></div></div>
     </div>
-    <form class="form reveal" id="scheduleForm" action="send.php" method="post">
+    <form class="form reveal" id="scheduleForm" action="/api/send" method="post">
       <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="var(--blue)" stroke-width="2"/><path d="M3 9h18M8 3v4M16 3v4" stroke="var(--orange-deep)" stroke-width="2" stroke-linecap="round"/></svg>Schedule service</h3>
       <div class="fm">Response within one business day</div>
       <div class="two">
@@ -676,6 +701,22 @@ header.scrolled .brand .l-navy{opacity:1}
           <label class="pill"><input type="checkbox" name="services[]" value="Electrical Repairs"><span>Electrical Repairs</span></label>
           <label class="pill"><input type="checkbox" name="services[]" value="Lighting"><span>Lighting</span></label>
         </div>
+      </div>
+      <div class="pick rz-wrap"><label for="rzInput">Applying for a job? Attach your r&eacute;sum&eacute; <span class="rz-opt">(optional)</span></label>
+        <div class="rz" id="rz" role="button" tabindex="0" aria-describedby="rzHint">
+          <input type="file" id="rzInput" name="resume" hidden accept=".pdf,.doc,.docx,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain">
+          <div class="rz-empty" id="rzEmpty">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 16v2.5A2.5 2.5 0 006.5 21h11a2.5 2.5 0 002.5-2.5V16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <b>Drop your r&eacute;sum&eacute; here</b>
+            <span id="rzHint">or <u>browse</u> &mdash; PDF or Word, up to 3&nbsp;MB</span>
+          </div>
+          <div class="rz-file" id="rzFile" hidden>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8zm0 0v5h5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="rz-name" id="rzName"></span><span class="rz-size" id="rzSize"></span>
+            <button type="button" class="rz-x" id="rzX" aria-label="Remove the attached file">&times;</button>
+          </div>
+        </div>
+        <p class="rz-err" id="rzErr" role="alert" hidden></p>
       </div>
       <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>Company<input type="text" name="company" tabindex="-1" autocomplete="off"></label></div><button type="submit" class="btn btn-orange">Send request <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       <p class="form-err" id="formErr" role="alert" hidden></p><div class="fn" id="fn">Goes straight to jennifer@elite1314.com</div>
@@ -748,8 +789,15 @@ if(vc){const v=document.getElementById('story-video'),pb=document.getElementById
     if(err)err.hidden=true;
     var label=btn?btn.innerHTML:'';
     if(btn){btn.disabled=true;btn.innerHTML='Sending\u2026';}
-    fetch(f.action,{method:'POST',body:new FormData(f),
-        headers:{'Accept':'application/json','X-Requested-With':'fetch'}})
+    var fd=new FormData(f), payload={};
+    fd.forEach(function(v,k){
+      if(k.slice(-2)==='[]'){ var b=k.slice(0,-2); (payload[b]=payload[b]||[]).push(v); }
+      else if(k==='company'){ payload.company_website=v; }   /* honeypot */
+      else if(k!=='resume'){ payload[k]=v; }                 /* the file goes below */
+    });
+    if(window.__resume) payload.resume=window.__resume;
+    fetch(f.action,{method:'POST',body:JSON.stringify(payload),
+        headers:{'Accept':'application/json','Content-Type':'application/json'}})
       .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
       .then(function(d){
         if(d&&d.ok){showThanks();return;}
@@ -761,6 +809,62 @@ if(vc){const v=document.getElementById('story-video'),pb=document.getElementById
           'We could not send that just now — please call 239.561.1314 or email '
           +'jennifer@elite1314.com.';err.hidden=false;}
       });
+  });
+})();
+</script>
+<script>
+/* ---- resume drop zone -------------------------------------------------- */
+(function(){
+  var MAX = 3*1024*1024;
+  var OK = /\.(pdf|docx?|txt)$/i;
+  var zone=document.getElementById('rz'), input=document.getElementById('rzInput'),
+      empty=document.getElementById('rzEmpty'), row=document.getElementById('rzFile'),
+      nm=document.getElementById('rzName'), sz=document.getElementById('rzSize'),
+      x=document.getElementById('rzX'), err=document.getElementById('rzErr');
+  if(!zone||!input) return;
+  window.__resume = null;
+
+  function fail(msg){ err.textContent=msg; err.hidden=false; clear(); }
+  function clear(){ window.__resume=null; input.value=''; row.hidden=true; empty.hidden=false; }
+
+  function take(file){
+    err.hidden=true;
+    if(!file) return;
+    if(!OK.test(file.name)) return fail('Please attach a PDF or Word document.');
+    if(file.size > MAX)     return fail('That file is '+(file.size/1048576).toFixed(1)+' MB. Please attach one under 3 MB.');
+    var fr=new FileReader();
+    fr.onerror=function(){ fail('That file could not be read — try saving it as a PDF.'); };
+    fr.onload=function(){
+      /* strip the "data:...;base64," prefix — the endpoint wants raw base64 */
+      var s=String(fr.result), c=s.indexOf(',');
+      window.__resume={name:file.name, type:file.type||'application/octet-stream', data:s.slice(c+1)};
+      nm.textContent=file.name;
+      sz.textContent=(file.size/1024>=1024 ? (file.size/1048576).toFixed(1)+' MB'
+                                           : Math.round(file.size/1024)+' KB');
+      empty.hidden=true; row.hidden=false;
+    };
+    fr.readAsDataURL(file);
+  }
+
+  zone.addEventListener('click', function(e){ if(e.target!==x) input.click(); });
+  zone.addEventListener('keydown', function(e){
+    if(e.key==='Enter'||e.key===' '){ e.preventDefault(); input.click(); }
+  });
+  input.addEventListener('change', function(){ take(input.files && input.files[0]); });
+  x.addEventListener('click', function(e){ e.stopPropagation(); err.hidden=true; clear(); });
+
+  ['dragenter','dragover'].forEach(function(ev){
+    zone.addEventListener(ev, function(e){ e.preventDefault(); zone.classList.add('over'); });
+  });
+  ['dragleave','drop'].forEach(function(ev){
+    zone.addEventListener(ev, function(e){ e.preventDefault(); zone.classList.remove('over'); });
+  });
+  zone.addEventListener('drop', function(e){
+    var dt=e.dataTransfer; if(dt && dt.files && dt.files.length) take(dt.files[0]);
+  });
+  /* a file dropped anywhere else should not navigate the page away */
+  ['dragover','drop'].forEach(function(ev){
+    document.addEventListener(ev, function(e){ if(!zone.contains(e.target)) e.preventDefault(); });
   });
 })();
 </script>
