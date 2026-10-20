@@ -8,6 +8,18 @@
 <link rel="canonical" href="https://eliteelectricswfl.com/services-residential.html">
 <meta http-equiv="refresh" content="0; url=services-residential.html">
 <script>location.replace('services-residential.html');</script>
+<style>
+/* ── mobile menu: the Services sub-links went white-on-white ──────────────
+   Once the header is scrolled the mobile menu turns white, but the dropdown
+   links kept the white they use over the navy panel, so the five service
+   entries were invisible — present, taking up space, unreadable. They now
+   follow the same colour as the rest of the open menu. */
+@media (max-width:1180px){
+  header.scrolled .menu .nav-dd .dd a{color:var(--muted)}
+  header.scrolled .menu .nav-dd .dd a:hover{color:var(--blue)}
+  header.scrolled .nav-dd .dd{border-left-color:rgba(13,24,48,.14)}
+}
+</style>
 </head>
 <body style="font-family:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;padding:40px;color:#15213A">
 <p>Repairs &amp; Service is now part of our

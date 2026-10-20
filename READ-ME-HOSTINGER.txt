@@ -1,0 +1,111 @@
+PUBLISHING TO HOSTINGER — elite1314.com
+20 October 2026
+
+
+WHAT CHANGED, AND WHY
+====================================================================
+Everything up to now was built for Vercel, which does not run PHP.
+elite1314.com is on Hostinger, which does. That is better news than it
+sounds, because it means the contact form can finally work.
+
+  send.php    and  apply.php  are back, and they do the sending
+  api/send.js is gone — it only ever worked on Vercel
+  No Resend account, no API key, nothing to sign up for
+
+The forms now post straight to those two PHP files, résumé attached.
+
+
+THE FOLDER LAYOUT ON THE SERVER
+====================================================================
+Everything goes inside  public_html , and the folders matter — the
+pages look for css/, js/, images/ and videos/ by those exact names.
+
+  public_html/
+      index.html, contact.html, careers.html … (all 33 .html files)
+      send.php
+      apply.php
+      css/      (8 files)
+      js/       (2 files)
+      images/   (94 files)
+      videos/   hero-loop.mp4, story-video.mp4
+
+The old site had everything in one flat heap. If those four folders do
+not exist yet, create them — hPanel File Manager has a New Folder button
+at the top.
+
+
+HOW TO UPLOAD
+====================================================================
+hPanel > Files > File Manager > open  public_html
+
+  1. Drag all the .html files plus send.php and apply.php into the root
+  2. Open the css folder and drag the 8 .css files in
+  3. Open js  and drag in site.js and actionbar.js
+  4. Open images and drag in all 94
+  5. Open videos and drag in the two .mp4 files
+
+File Manager takes a whole folder dragged in from Explorer, which is
+quicker than file by file. Uploading over an existing file replaces it.
+
+(If you would rather use FTP, hPanel > Files > FTP Accounts gives you
+the host, username and password for FileZilla. Same destination.)
+
+
+TESTING THE CONTACT FORM — DO THIS FIRST
+====================================================================
+This is the part that has silently not worked for weeks, so check it
+before anything else.
+
+  1. Open  elite1314.com/contact.html
+  2. Fill it in with your own email, attach a small PDF, send
+  3. You should see the thank-you panel, not an error
+  4. Check  jennifer@elite1314.com  — the email should be there with
+     the PDF attached. Look in Spam if it is not in the inbox.
+
+If it lands in Spam, or does not arrive at all, open send.php and read
+the block near the top headed OPTIONAL. It walks through pointing the
+script at a real Hostinger mailbox, which signs the email so Gmail and
+Outlook trust it. You will need the mailbox password, so do that bit
+yourself — do not send it to me.
+
+Same again at  elite1314.com/apply.html  for a job application. Those
+go to  service@elite1314.com .
+
+
+WHAT THE RÉSUMÉ UPLOAD DOES
+====================================================================
+Drag a file onto the box or click to browse. PDF or Word, up to 3 MB.
+It shows the filename and size with an X to remove it, and refuses the
+wrong kind of file before anyone presses Send.
+
+The file is emailed as a normal attachment. Nothing is written to the
+server, so there is no folder of résumés to manage or secure.
+
+One caveat: Hostinger has its own upload ceiling, often 2 MB on the
+cheaper plans. If a 2.5 MB résumé is refused with "too large for the
+server", that is the host rather than the form — hPanel > Advanced >
+PHP Configuration > upload_max_filesize raises it.
+
+
+ABOUT GITHUB AND VERCEL
+====================================================================
+They are not the live site and never were. Nothing you upload there
+reaches elite1314.com.
+
+Worth deciding with Chris what they are for now — a staging copy is
+genuinely useful, but only if someone remembers it exists. If not, the
+simplest thing is to stop using them and publish to Hostinger only.
+
+
+STILL OUTSTANDING
+====================================================================
+  4 community cards have no photo: AM - Gatherpoint (the AVIF),
+  Ave Maria SF, Webbs Reserve Bldg, Kingston.
+
+  Waiting on Elite: the Careers team photo (name it careers-photo.jpg
+  and drop it in images/), technician photos, the Materials/Parts
+  portfolio link, and Chipper's new contact addresses.
+
+  Six naming and duplicate questions for Chris — Kings Gate, Verdana
+  Village, the two Esplanades, Whispering Lakes under two builders,
+  Webbs Reserve SF vs Bldg, and Del Webb Naples vs Ave Maria.

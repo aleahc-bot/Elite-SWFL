@@ -661,6 +661,18 @@ header.scrolled .brand .l-navy{opacity:1}
 
 
 </style>
+<style>
+/* ── mobile menu: the Services sub-links went white-on-white ──────────────
+   Once the header is scrolled the mobile menu turns white, but the dropdown
+   links kept the white they use over the navy panel, so the five service
+   entries were invisible — present, taking up space, unreadable. They now
+   follow the same colour as the rest of the open menu. */
+@media (max-width:1180px){
+  header.scrolled .menu .nav-dd .dd a{color:var(--muted)}
+  header.scrolled .menu .nav-dd .dd a:hover{color:var(--blue)}
+  header.scrolled .nav-dd .dd{border-left-color:rgba(13,24,48,.14)}
+}
+</style>
 </head>
 <body>
 <header id="hdr">
@@ -686,7 +698,7 @@ header.scrolled .brand .l-navy{opacity:1}
       <div class="detail"><div class="di"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6.5h18v11a1 1 0 01-1 1H4a1 1 0 01-1-1v-11zm0 0l9 6 9-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="dt"><small>Residential &mdash; Email us</small><b><a href="mailto:homeservices@elite1314.com">homeservices@elite1314.com</a></b></div></div><div class="detail"><div class="di"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6.5h18v11a1 1 0 01-1 1H4a1 1 0 01-1-1v-11zm0 0l9 6 9-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="dt"><small>Commercial &amp; New Construction &mdash; Email us</small><b><a href="mailto:chris@elite1314.com">chris@elite1314.com</a></b></div></div><div class="detail"><div class="di"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6.5h18v11a1 1 0 01-1 1H4a1 1 0 01-1-1v-11zm0 0l9 6 9-6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="dt"><small>Careers &amp; hiring &mdash; Email us</small><b><a href="mailto:jennifer@elite1314.com">jennifer@elite1314.com</a></b></div></div>
       <div class="detail"><div class="di"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/></svg></div><div class="dt"><small>Service area</small><b>Cape Coral · Fort Myers · SW Florida</b></div></div>
     </div>
-    <form class="form reveal" id="scheduleForm" action="/api/send" method="post">
+    <form class="form reveal" id="scheduleForm" action="send.php" enctype="multipart/form-data" method="post">
       <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="var(--blue)" stroke-width="2"/><path d="M3 9h18M8 3v4M16 3v4" stroke="var(--orange-deep)" stroke-width="2" stroke-linecap="round"/></svg>Schedule service</h3>
       <div class="fm">Response within one business day</div>
       <div class="two">
@@ -789,15 +801,10 @@ if(vc){const v=document.getElementById('story-video'),pb=document.getElementById
     if(err)err.hidden=true;
     var label=btn?btn.innerHTML:'';
     if(btn){btn.disabled=true;btn.innerHTML='Sending\u2026';}
-    var fd=new FormData(f), payload={};
-    fd.forEach(function(v,k){
-      if(k.slice(-2)==='[]'){ var b=k.slice(0,-2); (payload[b]=payload[b]||[]).push(v); }
-      else if(k==='company'){ payload.company_website=v; }   /* honeypot */
-      else if(k!=='resume'){ payload[k]=v; }                 /* the file goes below */
-    });
-    if(window.__resume) payload.resume=window.__resume;
-    fetch(f.action,{method:'POST',body:JSON.stringify(payload),
-        headers:{'Accept':'application/json','Content-Type':'application/json'}})
+    /* FormData carries the resume's real bytes, so send.php gets it in $_FILES
+       exactly as a plain form post would deliver it. */
+    fetch(f.action,{method:'POST',body:new FormData(f),
+        headers:{'Accept':'application/json','X-Requested-With':'fetch'}})
       .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
       .then(function(d){
         if(d&&d.ok){showThanks();return;}
@@ -832,12 +839,16 @@ if(vc){const v=document.getElementById('story-video'),pb=document.getElementById
     if(!file) return;
     if(!OK.test(file.name)) return fail('Please attach a PDF or Word document.');
     if(file.size > MAX)     return fail('That file is '+(file.size/1048576).toFixed(1)+' MB. Please attach one under 3 MB.');
+    /* A dropped file never reaches the <input>, and the <input> is what the
+       browser puts in the multipart body. Put it there by hand so a drag and
+       a browse end up identical. */
+    try { var dt=new DataTransfer(); dt.items.add(file); input.files=dt.files; }
+    catch(e) { /* very old browser: the browse path still works */ }
     var fr=new FileReader();
     fr.onerror=function(){ fail('That file could not be read — try saving it as a PDF.'); };
     fr.onload=function(){
       /* strip the "data:...;base64," prefix — the endpoint wants raw base64 */
-      var s=String(fr.result), c=s.indexOf(',');
-      window.__resume={name:file.name, type:file.type||'application/octet-stream', data:s.slice(c+1)};
+      window.__resume={name:file.name};
       nm.textContent=file.name;
       sz.textContent=(file.size/1024>=1024 ? (file.size/1048576).toFixed(1)+' MB'
                                            : Math.round(file.size/1024)+' KB');

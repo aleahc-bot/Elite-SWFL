@@ -81,7 +81,7 @@
       </div>
     </aside>
 
-    <form class="ap-form" id="apForm" method="post" action="/api/send" novalidate>
+    <form class="ap-form" id="apForm" method="post" action="apply.php" enctype="multipart/form-data" novalidate>
       <p class="ap-req"><span class="ap-star">*</span> Required</p>
 
       <div class="ap-field">
@@ -199,10 +199,6 @@
       <p class="ap-small">Elite Electrical Contractors is an equal-opportunity employer.</p>
       <p class="ap-err" id="apErr" role="alert" hidden></p>
     </form>
-    <div class="ap-sent" id="apSent" hidden>
-      <h2>Thank you &mdash; your application is in.</h2>
-      <p>Jennifer will be in touch. If you need us sooner, call 239.561.1314.</p>
-    </div>
 
   </div>
 </div></section>
@@ -238,8 +234,8 @@
 
   /* keep the browser's own validation but surface one clear message */
   var f=document.getElementById('apForm'), err=document.getElementById('apErr');
-  var sent=document.getElementById('apSent'),
-      btn=f.querySelector('button[type=submit]');
+  /* apply.php renders its own thank-you page, so this is a plain post —
+     the browser carries the resume in the multipart body by itself. */
   f.addEventListener('submit',function(ev){
     if(!f.checkValidity()){
       ev.preventDefault();
@@ -247,34 +243,7 @@
       err.textContent='Please fill in the required fields marked with an asterisk.';
       err.hidden=false;
       var bad=f.querySelector(':invalid'); if(bad){bad.focus();}
-      return;
     }
-    if(!window.fetch||!window.FormData) return;   /* very old browser: plain post */
-    ev.preventDefault();
-    err.hidden=true;
-    var label=btn?btn.innerHTML:'';
-    if(btn){btn.disabled=true;btn.innerHTML='Sending\u2026';}
-    var fd=new FormData(f), payload={kind:'application'};
-    fd.forEach(function(v,k){
-      if(k.slice(-2)==='[]'){var b=k.slice(0,-2);(payload[b]=payload[b]||[]).push(v);}
-      else if(k!=='resume'){payload[k]=v;}
-    });
-    if(window.__resume) payload.resume=window.__resume;
-    fetch(f.action,{method:'POST',body:JSON.stringify(payload),
-        headers:{'Accept':'application/json','Content-Type':'application/json'}})
-      .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
-      .then(function(d){
-        if(d&&d.ok){f.hidden=true;sent.hidden=false;sent.setAttribute('role','status');
-          try{sent.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){sent.scrollIntoView();}
-          return;}
-        throw new Error((d&&d.message)||'send failed');
-      })
-      .catch(function(e){
-        if(btn){btn.disabled=false;btn.innerHTML=label;}
-        err.textContent=(e.message&&e.message!=='send failed')?e.message:
-          'We could not send that just now \u2014 please call 239.561.1314.';
-        err.hidden=false;
-      });
   });
 })();
 </script>
@@ -298,12 +267,16 @@
     if(!file) return;
     if(!OK.test(file.name)) return fail('Please attach a PDF or Word document.');
     if(file.size > MAX)     return fail('That file is '+(file.size/1048576).toFixed(1)+' MB. Please attach one under 3 MB.');
+    /* A dropped file never reaches the <input>, and the <input> is what the
+       browser puts in the multipart body. Put it there by hand so a drag and
+       a browse end up identical. */
+    try { var dt=new DataTransfer(); dt.items.add(file); input.files=dt.files; }
+    catch(e) { /* very old browser: the browse path still works */ }
     var fr=new FileReader();
     fr.onerror=function(){ fail('That file could not be read — try saving it as a PDF.'); };
     fr.onload=function(){
       /* strip the "data:...;base64," prefix — the endpoint wants raw base64 */
-      var s=String(fr.result), c=s.indexOf(',');
-      window.__resume={name:file.name, type:file.type||'application/octet-stream', data:s.slice(c+1)};
+      window.__resume={name:file.name};
       nm.textContent=file.name;
       sz.textContent=(file.size/1024>=1024 ? (file.size/1048576).toFixed(1)+' MB'
                                            : Math.round(file.size/1024)+' KB');
