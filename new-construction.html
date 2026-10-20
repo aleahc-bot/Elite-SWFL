@@ -450,6 +450,21 @@
       dir.href = 'https://www.google.com/maps/dir/?api=1&destination='
                + encodeURIComponent(q);
       dir.hidden = false;
+
+      /* builders.js hides this link again every time the map settles, because
+         no community has a street address on file — which is why it vanished
+         a moment after you scrolled. Watch the attribute and take it straight
+         back off. CSS cannot win here: site.css carries a global
+         [hidden]{display:none!important}, and overriding that would mean
+         hard-coding a display value over the stylesheet's own. */
+      if(!dir.__keep){
+        dir.__keep = new MutationObserver(function(){
+          if(dir.hasAttribute('hidden') && dir.getAttribute('href')){
+            dir.removeAttribute('hidden');
+          }
+        });
+        dir.__keep.observe(dir, {attributes:true, attributeFilter:['hidden']});
+      }
     }
     if(slotA) slotA.hidden = true;
     if(pair)  pair.hidden  = true;
