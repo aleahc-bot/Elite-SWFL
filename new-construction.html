@@ -173,6 +173,7 @@
 .bd-gal{display:flex;flex-direction:column;gap:10px}
 .bd-gal img{display:block;width:100%;border-radius:12px;object-fit:cover;background:var(--soft)}
 .bd-gal .g-wide img{aspect-ratio:2/1}
+.bd-gal .g-card img{aspect-ratio:8/5}
 .bd-gal .g-pair{display:grid;gap:10px}
 .bd-gal .g-pair.two{grid-template-columns:1fr 1fr}
 .bd-gal .g-pair img{aspect-ratio:4/3}
@@ -359,7 +360,8 @@
    heading and reacts whenever it changes — so it works whether the
    community was opened from a card or from a pin on the map. */
 (function(){
-  var GAL = {"am-avalon-park": ["community-am-avalon-park-a"], "am-del-webb": ["community-am-del-webb-a"], "arbor-oaks": ["community-arbor-oaks-a", "community-arbor-oaks-b"], "babcock-northridge": ["community-babcock-northridge-a", "community-babcock-northridge-b"], "babcock-sawgrass-lakes": ["community-babcock-sawgrass-lakes-a", "community-babcock-sawgrass-lakes-b"], "babcock-terra-walk": ["community-babcock-terra-walk-a"], "babcock-verde": ["community-babcock-verde-a"], "brighton": ["community-brighton-a"], "by-the-islands": ["community-by-the-islands-a", "community-by-the-islands-b"], "caymas": ["community-caymas-a"], "cedar-grove": ["community-cedar-grove-a", "community-cedar-grove-b"], "crescent-lakes": ["community-crescent-lakes-a"], "hampton-lakes-at-river-hall": ["community-hampton-lakes-at-river-hall-a"], "maple-point": ["community-maple-point-a"], "sabal-glen": ["community-sabal-glen-a"], "sandy-key": ["community-sandy-key-a"], "solena": ["community-solena-a", "community-solena-b"], "starling": ["community-starling-a"], "valencia": ["community-valencia-a", "community-valencia-b"], "verdana": ["community-verdana-a"], "vivid-shores": ["community-vivid-shores-a"], "whispering-lakes": ["community-whispering-lakes-a"], "willow": ["community-willow-a"]};
+  var CARD = ["am-avalon-park", "am-del-webb", "arbor-oaks", "ave-maria-bldg", "babcock-northridge", "babcock-sawgrass-lakes", "babcock-terra-walk", "babcock-verde", "brighton", "brightwater", "by-the-islands", "caloosa-cove", "cassia-bay", "caymas", "cedar-grove", "coral-bay", "crescent-lakes", "hampton-lakes-at-river-hall", "kingsgate", "maple-point", "mi-whispering-lakes", "palmetto-landing", "sabal-glen", "sandpiper-pointe", "sandy-key", "solena", "solis-grande", "starling", "stonewater", "turnleaf", "valencia", "verdana", "vivid-shores", "webbs-reserve-sf", "whispering-lakes", "willow", "willowgreen-bldg"];
+  var GAL = {"am-avalon-park": ["community-am-avalon-park-a"], "am-del-webb": ["community-am-del-webb-a"], "arbor-oaks": ["community-arbor-oaks-a", "community-arbor-oaks-b"], "babcock-northridge": ["community-babcock-northridge-a", "community-babcock-northridge-b"], "babcock-sawgrass-lakes": ["community-babcock-sawgrass-lakes-a", "community-babcock-sawgrass-lakes-b"], "babcock-terra-walk": ["community-babcock-terra-walk-a"], "babcock-verde": ["community-babcock-verde-a"], "brighton": ["community-brighton-a", "community-brighton-b"], "by-the-islands": ["community-by-the-islands-a", "community-by-the-islands-b"], "caymas": ["community-caymas-a"], "cedar-grove": ["community-cedar-grove-a", "community-cedar-grove-b", "community-cedar-grove-c"], "crescent-lakes": ["community-crescent-lakes-a", "community-crescent-lakes-b"], "hampton-lakes-at-river-hall": ["community-hampton-lakes-at-river-hall-a"], "kingsgate": ["community-kingsgate-b", "community-kingsgate-c"], "maple-point": ["community-maple-point-a"], "sabal-glen": ["community-sabal-glen-a"], "sandy-key": ["community-sandy-key-a"], "solena": ["community-solena-a", "community-solena-b"], "solis-grande": ["community-solis-grande-b", "community-solis-grande-c"], "starling": ["community-starling-a", "community-starling-b"], "turnleaf": ["community-turnleaf-b"], "valencia": ["community-valencia-b", "community-valencia-c"], "verdana": ["community-verdana-a", "community-verdana-b"], "vivid-shores": ["community-vivid-shores-a"], "whispering-lakes": ["community-whispering-lakes-a", "community-whispering-lakes-b"], "willow": ["community-willow-b"], "willowgreen-bldg": ["community-willowgreen-bldg-b"]};
   var box = document.getElementById('bdGal');
   var nameEl = document.querySelector('[data-detail] [data-i-name]');
   if(!box || !nameEl) return;
@@ -392,12 +394,22 @@
   function render(){
     var slug = SLUG[(nameEl.textContent || '').trim()];
     var shots = (slug && GAL[slug]) || [];
+    var lead  = slug && CARD.indexOf(slug) > -1;
     var html;
-    if(!shots.length){
+    if(!shots.length && !lead){
       html = SOON;
     } else {
-      html = pic(shots[0], 'g-wide');
-      var rest = shots.slice(1);
+      /* a file tagged -a was cut for the wide 2:1 slot; anything else was cut
+         4:3 for the pair, so it must not be stretched across the top */
+      var rest = shots.slice();
+      html = '';
+      if(lead){
+        /* the tile's own photo leads, so the panel is never emptier than the
+           card the visitor just tapped */
+        html = pic('community-' + slug, 'g-card');
+      } else if(/-a$/.test(rest[0])){
+        html = pic(rest.shift(), 'g-wide');
+      }
       if(rest.length){
         html += '<div class="g-pair' + (rest.length > 1 ? ' two' : '') + '">'
               + rest.map(function(b){ return pic(b, ''); }).join('') + '</div>';
