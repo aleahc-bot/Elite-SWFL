@@ -177,6 +177,26 @@
 .bd-gal .g-pair{display:grid;gap:10px}
 .bd-gal .g-pair.two{grid-template-columns:1fr 1fr}
 .bd-gal .g-pair img{aspect-ratio:4/3}
+/* ── tap a panel photo to see it full size ───────────────────────────────── */
+.bd-gal picture{display:block;cursor:zoom-in}
+.bd-gal picture:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:12px}
+.lb{position:fixed;inset:0;z-index:9999;display:none;place-items:center;
+  background:rgba(8,14,30,.88);padding:clamp(14px,4vw,48px)}
+.lb[open]{display:grid}
+/* the floating Call / Email bar sits above everything else, so it is taken out
+   while a photo is open — otherwise it lands across the caption */
+.lb-on .actionbar,.lb-on .fab-call{display:none!important}
+.lb img{max-width:100%;max-height:100%;width:auto;height:auto;border-radius:10px;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);background:#0d1830}
+.lb-cap{position:absolute;left:0;right:0;bottom:clamp(10px,2.4vw,22px);text-align:center;
+  color:rgba(255,255,255,.88);font-size:13.5px;letter-spacing:.01em;padding:0 20px}
+.lb-x{position:absolute;top:clamp(10px,2vw,18px);right:clamp(10px,2vw,18px);
+  width:42px;height:42px;border:0;border-radius:50%;cursor:pointer;font-size:22px;line-height:1;
+  background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;
+  transition:background .2s}
+.lb-x:hover{background:rgba(255,255,255,.26)}
+@media(prefers-reduced-motion:no-preference){.lb[open] img{animation:lbIn .18s ease-out}}
+@keyframes lbIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:none}}
 .bd-soon{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
   text-align:center;padding:30px 22px;border:1.5px dashed var(--gray);border-radius:14px;
   background:var(--soft);color:var(--muted)}
@@ -361,7 +381,7 @@
    community was opened from a card or from a pin on the map. */
 (function(){
   var CARD = ["am-avalon-park", "am-del-webb", "arbor-oaks", "ave-maria-bldg", "babcock-northridge", "babcock-sawgrass-lakes", "babcock-terra-walk", "babcock-verde", "brighton", "brightwater", "by-the-islands", "caloosa-cove", "cassia-bay", "caymas", "cedar-grove", "coral-bay", "crescent-lakes", "hampton-lakes-at-river-hall", "kingsgate", "maple-point", "mi-whispering-lakes", "palmetto-landing", "sabal-glen", "sandpiper-pointe", "sandy-key", "solena", "solis-grande", "starling", "stonewater", "turnleaf", "valencia", "verdana", "vivid-shores", "webbs-reserve-sf", "whispering-lakes", "willow", "willowgreen-bldg"];
-  var GAL = {"am-avalon-park": ["community-am-avalon-park-a"], "am-del-webb": ["community-am-del-webb-a"], "arbor-oaks": ["community-arbor-oaks-a", "community-arbor-oaks-b"], "babcock-northridge": ["community-babcock-northridge-a", "community-babcock-northridge-b"], "babcock-sawgrass-lakes": ["community-babcock-sawgrass-lakes-a", "community-babcock-sawgrass-lakes-b"], "babcock-terra-walk": ["community-babcock-terra-walk-a"], "babcock-verde": ["community-babcock-verde-a"], "brighton": ["community-brighton-a", "community-brighton-b"], "by-the-islands": ["community-by-the-islands-a", "community-by-the-islands-b"], "caymas": ["community-caymas-a"], "cedar-grove": ["community-cedar-grove-a", "community-cedar-grove-b", "community-cedar-grove-c"], "crescent-lakes": ["community-crescent-lakes-a", "community-crescent-lakes-b"], "hampton-lakes-at-river-hall": ["community-hampton-lakes-at-river-hall-a"], "kingsgate": ["community-kingsgate-b", "community-kingsgate-c"], "maple-point": ["community-maple-point-a"], "sabal-glen": ["community-sabal-glen-a"], "sandy-key": ["community-sandy-key-a"], "solena": ["community-solena-a", "community-solena-b"], "solis-grande": ["community-solis-grande-b", "community-solis-grande-c"], "starling": ["community-starling-a", "community-starling-b"], "turnleaf": ["community-turnleaf-b"], "valencia": ["community-valencia-b", "community-valencia-c"], "verdana": ["community-verdana-a", "community-verdana-b"], "vivid-shores": ["community-vivid-shores-a"], "whispering-lakes": ["community-whispering-lakes-a", "community-whispering-lakes-b"], "willow": ["community-willow-b"], "willowgreen-bldg": ["community-willowgreen-bldg-b"]};
+  var GAL = {"am-avalon-park": ["community-am-avalon-park-a"], "am-del-webb": ["community-am-del-webb-a"], "arbor-oaks": ["community-arbor-oaks-a", "community-arbor-oaks-b"], "babcock-northridge": ["community-babcock-northridge-a", "community-babcock-northridge-b"], "babcock-sawgrass-lakes": ["community-babcock-sawgrass-lakes-a", "community-babcock-sawgrass-lakes-b"], "babcock-terra-walk": ["community-babcock-terra-walk-a"], "babcock-verde": ["community-babcock-verde-a"], "brighton": ["community-brighton-a", "community-brighton-b"], "brightwater": ["community-brightwater-a", "community-brightwater-b"], "by-the-islands": ["community-by-the-islands-a", "community-by-the-islands-b"], "caymas": ["community-caymas-a"], "cedar-grove": ["community-cedar-grove-a", "community-cedar-grove-b", "community-cedar-grove-c"], "coral-bay": ["community-coral-bay-a", "community-coral-bay-b"], "crescent-lakes": ["community-crescent-lakes-a", "community-crescent-lakes-b"], "hampton-lakes-at-river-hall": ["community-hampton-lakes-at-river-hall-a"], "kingsgate": ["community-kingsgate-b", "community-kingsgate-c"], "maple-point": ["community-maple-point-a"], "palmetto-landing": ["community-palmetto-landing-a", "community-palmetto-landing-b"], "sabal-glen": ["community-sabal-glen-a"], "sandy-key": ["community-sandy-key-a"], "solena": ["community-solena-a", "community-solena-b"], "solis-grande": ["community-solis-grande-b", "community-solis-grande-c"], "starling": ["community-starling-a", "community-starling-b"], "stonewater": ["community-stonewater-a", "community-stonewater-b"], "turnleaf": ["community-turnleaf-b"], "valencia": ["community-valencia-b", "community-valencia-c"], "verdana": ["community-verdana-a", "community-verdana-b"], "vivid-shores": ["community-vivid-shores-a"], "whispering-lakes": ["community-whispering-lakes-a", "community-whispering-lakes-b"], "willow": ["community-willow-b"], "willowgreen-bldg": ["community-willowgreen-bldg-b"]};
   var box = document.getElementById('bdGal');
   var nameEl = document.querySelector('[data-detail] [data-i-name]');
   if(!box || !nameEl) return;
@@ -385,7 +405,7 @@
     + '<span>We are still gathering photos of the homes we have wired here.</span></div>';
 
   function pic(base, cls){
-    return '<div class="' + cls + '"><picture>'
+    return '<div class="' + cls + '"><picture tabindex="0" role="button" aria-label="Open this photo full size">'
          + '<source srcset="images/' + base + '.webp" type="image/webp">'
          + '<img src="images/' + base + '.jpg" alt="" loading="lazy" decoding="async">'
          + '</picture></div>';
@@ -417,6 +437,20 @@
     }
     box.innerHTML = html;
     box.hidden = false;
+
+    /* builders.js leaves the directions link without an href when a community
+       has no street address on file, and none of them do — so point it at the
+       place by name, which Google resolves better than approximate pins. */
+    var dir = document.querySelector('[data-detail] [data-i-dir]');
+    if(dir){
+      var town = (document.querySelector('[data-detail] [data-i-town]') || {}).textContent || '';
+      var addr = (document.querySelector('[data-detail] [data-i-addr]') || {}).textContent || '';
+      var q = (addr.trim() || [(nameEl.textContent||'').trim(), town.trim(), 'FL']
+                              .filter(Boolean).join(', '));
+      dir.href = 'https://www.google.com/maps/dir/?api=1&destination='
+               + encodeURIComponent(q);
+      dir.hidden = false;
+    }
     if(slotA) slotA.hidden = true;
     if(pair)  pair.hidden  = true;
   }
@@ -424,6 +458,65 @@
   new MutationObserver(render).observe(nameEl,
     {childList:true, characterData:true, subtree:true});
   if((nameEl.textContent || '').trim()) render();
+})();
+</script>
+<script>
+/* One overlay, reused. Opens on click or Enter, closes on the X, the backdrop
+   or Escape, and puts focus back where it came from. */
+(function(){
+  var box = document.getElementById('bdGal');
+  if(!box) return;
+  var lb = document.createElement('div');
+  lb.className = 'lb';
+  lb.setAttribute('role','dialog');
+  lb.setAttribute('aria-modal','true');
+  lb.innerHTML = '<img alt=""><p class="lb-cap"></p>'
+               + '<button class="lb-x" type="button" aria-label="Close">&times;</button>';
+  document.body.appendChild(lb);
+  var img = lb.querySelector('img'), cap = lb.querySelector('.lb-cap'),
+      x = lb.querySelector('.lb-x'), from = null;
+
+  function open(src, text){
+    img.src = src; cap.textContent = text || '';
+    lb.setAttribute('open','');
+    from = document.activeElement;
+    x.focus();
+    document.documentElement.style.overflow = 'hidden';
+    document.body.classList.add('lb-on');
+  }
+  function close(){
+    lb.removeAttribute('open'); img.removeAttribute('src');
+    document.documentElement.style.overflow = '';
+    document.body.classList.remove('lb-on');
+    if(from && from.focus) from.focus();
+  }
+  x.addEventListener('click', close);
+  lb.addEventListener('click', function(e){ if(e.target === lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && lb.hasAttribute('open')) close();
+  });
+
+  function label(){
+    var n = document.querySelector('[data-detail] [data-i-name]');
+    var tn = document.querySelector('[data-detail] [data-i-town]');
+    return [(n && n.textContent || '').trim(), (tn && tn.textContent || '').trim()]
+             .filter(Boolean).join(' · ');
+  }
+  /* delegated, so it keeps working every time the strip is rebuilt */
+  box.addEventListener('click', function(e){
+    var i = e.target.closest ? e.target.closest('picture') : null;
+    if(!i) return;
+    var im = i.querySelector('img');
+    if(im) open(im.currentSrc || im.src, label());
+  });
+  box.addEventListener('keydown', function(e){
+    if(e.key !== 'Enter' && e.key !== ' ') return;
+    var i = e.target.closest ? e.target.closest('picture') : null;
+    if(!i) return;
+    e.preventDefault();
+    var im = i.querySelector('img');
+    if(im) open(im.currentSrc || im.src, label());
+  });
 })();
 </script>
 </body>
