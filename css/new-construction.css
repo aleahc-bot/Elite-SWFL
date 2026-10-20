@@ -362,7 +362,12 @@
 @media (max-width: 1080px) { .bd-grid, .cm-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
 @media (max-width: 760px) {
   .bd-grid, .cm-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .bd-tools { flex-direction: column; align-items: stretch; }
+  /* Stacking these turned the row into a column, and .bd-search carries
+     flex: 1 1 260px — in a column that 260px is a HEIGHT, so the search box
+     reserved 260px of empty space above the town filter. Reset the basis and
+     stop space-between pushing the two apart. */
+  .bd-tools { flex-direction: column; align-items: stretch; justify-content: flex-start; }
+  .bd-search, .bd-towns { flex: 0 0 auto; }
   .bd-total { display: none; }
   /* one column: map first, then the detail panel under it */
   .bd-map-wrap { grid-template-columns: 1fr; border-radius: 14px; }
