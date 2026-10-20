@@ -253,6 +253,21 @@ function resume_upload(): ?array
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: same-origin');
 
+/* A GET with ?selftest=1 reports only booleans — no credentials, no paths, no
+   server detail. It exists so "the form errored" can be told apart from "this
+   file is not on the server", which otherwise look identical from outside. */
+if (($_SERVER['REQUEST_METHOD'] ?? '') === 'GET' && ($_GET['selftest'] ?? '') === '1') {
+    header('Content-Type: text/plain; charset=utf-8');
+    $disabled = array_map('trim', explode(',', (string) ini_get('disable_functions')));
+    echo "send.php is here and running.\n\n";
+    echo 'PHP major version : ' . PHP_MAJOR_VERSION . "\n";
+    echo 'mail() available  : ' . (function_exists('mail') && !in_array('mail', $disabled, true) ? 'yes' : 'NO — this is why the form fails') . "\n";
+    echo 'SMTP configured   : ' . ($SMTP['host'] !== '' ? 'yes' : 'no (using the host\'s own mail)') . "\n";
+    echo 'Sends to          : ' . $TO . "\n";
+    echo 'Max upload        : ' . ini_get('upload_max_filesize') . "\n";
+    exit;
+}
+
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
     if (wants_json()) {
         finish(false, 'Please use the form on our contact page.', 405);
@@ -377,8 +392,13 @@ if ($SMTP['host'] !== '') {
 }
 
 if (!$sent) {
-    finish(false, 'We could not send that just now — please call 239.561.1314 '
-                . 'or email ' . $TO . '.', 500);
+    /* Worded differently from the fallback in contact.html on purpose. If you
+       see THIS one, send.php ran and the mail system refused it — which on
+       shared hosting almost always means mail() is disabled and the SMTP
+       block at the top needs filling in. If you see the other one, the
+       browser never reached this file at all. */
+    finish(false, 'Your details reached us but the mail system rejected them. '
+                . 'Please call 239.561.1314 or email ' . $TO . ' directly.', 500);
 }
 
 finish(true, 'Thank you for submitting. Somebody will be in touch with you shortly.');
