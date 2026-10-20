@@ -194,7 +194,7 @@ function smtp_send(array $cfg, string $from, string $to, string $subject,
 
 /** What a resume is allowed to be. Anything else is refused by name. */
 const RESUME_MAX   = 3145728;            // 3 MB, matching the form's own check
-const RESUME_TYPES = ['pdf', 'doc', 'docx', 'txt'];
+const RESUME_TYPES = ['pdf', 'doc', 'docx', 'txt', 'jpg', 'jpeg', 'png', 'webp', 'heic'];
 
 /**
  * Read an uploaded resume, if there is one.
@@ -225,7 +225,7 @@ function resume_upload(): ?array
     $name = mb_substr(ltrim($name, '.'), 0, 120);
     $ext  = strtolower(pathinfo($name, PATHINFO_EXTENSION));
     if (!in_array($ext, RESUME_TYPES, true)) {
-        finish(false, 'Please attach a PDF or Word document.', 415);
+        finish(false, 'Please attach a PDF, a Word document or a photo.', 415);
     }
 
     $bytes = (string) file_get_contents($f['tmp_name']);
@@ -238,6 +238,11 @@ function resume_upload(): ?array
         'doc'  => 'application/msword',
         'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         'txt'  => 'text/plain',
+        'jpg'  => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'png'  => 'image/png',
+        'webp' => 'image/webp',
+        'heic' => 'image/heic',
     ][$ext];
 
     return [$name, $mime, $bytes];
@@ -306,7 +311,7 @@ $body = implode("\r\n", [
 $subject = enc_subject($SUBJECT . ' - ' . $name);
 $resume  = resume_upload();
 if ($resume !== null) {
-    $body .= "\r\nResume attached: " . $resume[0] . "\r\n";
+    $body .= "\r\nFile attached: " . $resume[0] . "\r\n";
 }
 
 $headers = [

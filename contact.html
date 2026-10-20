@@ -714,13 +714,13 @@ header.scrolled .brand .l-navy{opacity:1}
           <label class="pill"><input type="checkbox" name="services[]" value="Lighting"><span>Lighting</span></label>
         </div>
       </div>
-      <div class="pick rz-wrap"><label for="rzInput">Applying for a job? Attach your r&eacute;sum&eacute; <span class="rz-opt">(optional)</span></label>
+      <div class="pick rz-wrap"><label for="rzInput">Additional requirements <span class="rz-opt">(optional)</span></label>
         <div class="rz" id="rz" role="button" tabindex="0" aria-describedby="rzHint">
-          <input type="file" id="rzInput" name="resume" hidden accept=".pdf,.doc,.docx,.txt,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain">
+          <input type="file" id="rzInput" name="resume" hidden accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.webp,.heic,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,image/*">
           <div class="rz-empty" id="rzEmpty">
             <svg viewBox="0 0 24 24" fill="none"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 16v2.5A2.5 2.5 0 006.5 21h11a2.5 2.5 0 002.5-2.5V16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <b>Drop your r&eacute;sum&eacute; here</b>
-            <span id="rzHint">or <u>browse</u> &mdash; PDF or Word, up to 3&nbsp;MB</span>
+            <b>Drop a file here</b>
+            <span id="rzHint">or <u>browse</u> &mdash; a photo, a plan, a quote or a r&eacute;sum&eacute;, up to 3&nbsp;MB</span>
           </div>
           <div class="rz-file" id="rzFile" hidden>
             <svg viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8zm0 0v5h5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -823,7 +823,7 @@ if(vc){const v=document.getElementById('story-video'),pb=document.getElementById
 /* ---- resume drop zone -------------------------------------------------- */
 (function(){
   var MAX = 3*1024*1024;
-  var OK = /\.(pdf|docx?|txt)$/i;
+  var OK = /\.(pdf|docx?|txt|jpe?g|png|webp|heic)$/i;
   var zone=document.getElementById('rz'), input=document.getElementById('rzInput'),
       empty=document.getElementById('rzEmpty'), row=document.getElementById('rzFile'),
       nm=document.getElementById('rzName'), sz=document.getElementById('rzSize'),
@@ -837,7 +837,7 @@ if(vc){const v=document.getElementById('story-video'),pb=document.getElementById
   function take(file){
     err.hidden=true;
     if(!file) return;
-    if(!OK.test(file.name)) return fail('Please attach a PDF or Word document.');
+    if(!OK.test(file.name)) return fail('Please attach a PDF, a Word document or a photo.');
     if(file.size > MAX)     return fail('That file is '+(file.size/1048576).toFixed(1)+' MB. Please attach one under 3 MB.');
     /* A dropped file never reaches the <input>, and the <input> is what the
        browser puts in the multipart body. Put it there by hand so a drag and
